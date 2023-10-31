@@ -1,3 +1,12 @@
+import random
+
+def character_background():
+    story = \
+        random.choice(origin) + " " +\
+        random.choice(hobby)  + " " +\
+        random.choice(achievement)
+    return story
+
 origin = [
          "You were born and raised in a hamlet.",
          "Your origins are unknown.",
