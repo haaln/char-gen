@@ -29,15 +29,18 @@ a program to quickly generate character name according to common constraints wit
 - Difficulty setting (e.g OSaaT / Pacifist )
     - re-roll character / Pick among X generations
 
-- AI-powered image creation based on input
 
 
 #
 name generation
 - algorithmic
 - pre-determined beginnings and endings
+- markov chain
+- generate similar name (based on input)
+ 
 
 ## AI
 - use tags to feed into chat GPT to provide a character background
 - use tags to feed into stable diffufsion
+    - image creation based on generated character
 
