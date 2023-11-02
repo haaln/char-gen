@@ -15,6 +15,17 @@ if __name__ == '__main__':
     print(restrictions.constraints())
     print(backstory.character_background())
 
+
+
+
+
+
+
+
+
+
+
+# kind of unnecessary when there is no generation-name or fitness randomization
 class Character:
     def __init__(self, sex='male', first_name='John', surname='Doe', backstory=backstory.character_background()):
         self._name = name
