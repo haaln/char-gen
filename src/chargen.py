@@ -12,8 +12,8 @@ def im_gen():
 
 if __name__ == '__main__':
     print(names.name())
-    print(restrictions.constraints())
-    print(backstory.character_background())
+#   print(restrictions.constraints())
+#   print(backstory.character_background())
 
 
 
