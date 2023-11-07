@@ -18,3 +18,6 @@ hobby = ["You like drinking beer after a hard days of labor.",
         "You have a morbid quriosity towards certain indescretions."]
 achievement = ["Your greatest achievement is being able to remain standing in any drinking contest.",
                "Your most prideful moment was when you got away with stealing an apple from a child."]
+
+origin_dwarf = [ "You were born and raised in CITY. "
+dwarf_city = [ "Gorndarum", "Birnkahldur", "Hig Faldir", "Bhom Buldor", "Haggrim", "Dugbihr", "Gol Durahl", "Bhogh Darohm", "Thoghbuldahr", "Veglodahr", "Kan Taruhm", "Ham Darul", "Vern Darim" ]
