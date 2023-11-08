@@ -11,6 +11,7 @@ a program to quickly generate character name according to common constraints wit
 - Name
     - generate names like X (or wildly different, slider-option)
     - common constraints
+        - Choose surname / first name
         - Choose beginnings / endings
             - choose to follow structural build-up of names or not
         - length

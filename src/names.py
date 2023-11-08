@@ -46,7 +46,11 @@ surname_modern = [
 
 male_firstname_dwarf = [ "Lorg", "Orlen", "Rakkulf", "Dur", "Durgur", "Orthr", "Al", "Stwulf", "Argon", "Bargur", "Fisthel", "Kron", "Dulg", "Klond", "Durgal", "Lurg", "Smut", "Kragg", "Thalrus", "Torr", "Gern", "Klag", "Borjal", "Gurjarn", "Narguraz", "Komraz", "Ork", "Sik", "Zur", "Udg", "Omron", "Kell", "Thurvak", "Kragn", "Gorjal", "Nargurg", "Bruk", "Zarz", "Burgund", "Gagm", "Egg", "Vurgundur", "Nar", "Klam", "Grub", "Valn", "Tusk", "Ark", "Lurgan", "Nargurgazh" "Zargul", "Egg", "Siss", "Kolgrim", "Aldgar", "Bardin", "Thor","Bjorn","Lauger","Ovur","Varin","Maof","Garandas","Vonthic","Kilar","Darnar","Dwalbar","Sundkas","Garn","Burgan","Buror","Donulf" ]
 female_firstname_dwarf = [ "Lotta", "Karnuula", "Raspustyla ", "Gunthera", "Petrilla", "Maita", "Nidara", "Laegla", "Dagruna", "Xaabra", "Darnath", "Karnra", "Thraumvora", "Firiela", "Tibia", "Fianna", "Caela", "Ruina", "Petrilla", "Sigrun", "Olgara", "Bogrunnera", "Moguna", "Yonala", "Dathaka", "Eira", "Runda", "Haudra", "Mudskulla", "Kalla", "Seimura", "Deimra", "Picarvella", "Dolunda", "Carysa", "Esmunda", "Karaza", "Dregura", "Gyzunna", "Mornagra", "Fionnuala ", "Lucildel", "Rassur", "Whelanda", "Balda", "Dotty", "Bardur" ]
-dwarf_surname_simple = [ "Stwulfson", "Vahk", "Durgur", "Niblock", "Torlek", "Klagdor", "Udgson", "Sikgwil", "Gernwulf", "Zurgash", "Nargrim", "Dawnstone", "Zarzur", "Tundra", "Glacier", "Moonrock", "Nargrum", "Nargnur", "Valantyr", "Klaggor", "Arktur", "Dobroldson", "Grumbar", "Eggin", "Nargrim", "Gurgaz", "Vandurin", "Goreksson"
+dwarf_surname_simple = [ "Stwulfson", "Vahk", "Durgur", "Niblock", "Torlek", "Klagdor", "Udgson", "Sikgwil", "Gernwulf", "Zurgash", "Nargrim", "Dawnstone", "Zarzur", "Tundra", "Glacier", "Moonrock", "Nargrum", "Nargnur", "Valantyr", "Klaggor", "Arktur", "Dobroldson", "Grumbar", "Eggin", "Nargrim", "Gurgaz", "Vandurin", "Goreksson" ]
+
+elf_male_firstname = [ "Aquilan", "Drannor", "Delsaran", "Khatar", "Ailmon", "Orym", "Ailmer", "Estelar", "Voron", "Teirist", "Mirthal", "Ralikanthae", "Ayen", "Falael", "Delmuth", "Erendriel" ]
+elf_female_firstname = [ "Melladiel", "Amonthea", "Mordiliel", "Arwyn", "Aniel", "Amaranna", "Limya", "Minnathiel", "Tirenmiriel", "Issidhwen", "Melaleth" ]
+elf_surname = [ "Rololinde", "Nhatanthar", "Isiliethor", "Mithlithdal", "Lartansel", "Neltanda", "Gwaeth", "Faelandalan", "Elerval", "Talbrinthor", "Nhaethelen" ]
 
 dwarf_firstname = [random.choice(male_firstname_dwarf), random.choice(female_firstname_dwarf) ]
 dwarf_surname = [ random.choice(dwarf_surname_simple) ]
@@ -56,5 +60,8 @@ human_female_firstname = [ random.choice(female_prefix)+random.choice(female_suf
 human_firstname = [ human_male_firstname, human_female_firstname ]
 human_surname = [ random.choice(surname_prefix)+random.choice(surname_suffix), random.choice(surname_ffxiv), random.choice(surname_modern) ]
 
-first_name = [ human_firstname, dwarf_firstname ]
-surname = [ human_surname, dwarf_surname ]
+elf_firstname = [ random.choice(male_firstname_elf), random.choice(female_firstname_elf) ]
+elf_surname = [ random.choice(elf_surname) ]
+
+first_name = [ human_firstname, dwarf_firstname, elf_firstname]
+surname = [ human_surname, dwarf_surnam, elf_surname ]
