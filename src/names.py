@@ -5,7 +5,8 @@ import random
 #    simple (algorithm)      = 0
 #    ffxiv                   = 1
 #    realistic (modern)      = 2
-#    historic (greek/roman)  = 3
+#    nickname                = 3
+#    historic (greek/roman)  = 4
 # race
 #    human     = 0
 #    dwarf     = 1
@@ -51,6 +52,13 @@ dwarf_surname_simple = [ "Stwulfson", "Vahk", "Durgur", "Niblock", "Torlek", "Kl
 elf_male_firstname = [ "Aquilan", "Drannor", "Delsaran", "Khatar", "Ailmon", "Orym", "Ailmer", "Estelar", "Voron", "Teirist", "Mirthal", "Ralikanthae", "Ayen", "Falael", "Delmuth", "Erendriel" ]
 elf_female_firstname = [ "Melladiel", "Amonthea", "Mordiliel", "Arwyn", "Aniel", "Amaranna", "Limya", "Minnathiel", "Tirenmiriel", "Issidhwen", "Melaleth" ]
 elf_surname = [ "Rololinde", "Nhatanthar", "Isiliethor", "Mithlithdal", "Lartansel", "Neltanda", "Gwaeth", "Faelandalan", "Elerval", "Talbrinthor", "Nhaethelen" ]
+
+color = [ "Red", "Yellow", "Orange", "Blue", "Green", "Violet", "Pink" ]
+adjective [ "Swift", "Hungry", "Eagle-eyed", "Vicious", "Cowardly", "Crafty", "Ruthless" ]
+noun = [ "Beaver", "Hawk", "Snake", "Rat", "Storm", "Fighter", "Joker", "Eagle", "Tiger", "Leopard", "Marmot" ]
+# need to add category/style to function properly
+
+nickname = [random.choice(color) + " " + random.choice(noun), random.choice(adjective) + " " + random.choice(noun) ]
 
 dwarf_firstname = [random.choice(male_firstname_dwarf), random.choice(female_firstname_dwarf) ]
 dwarf_surname = [ random.choice(dwarf_surname_simple) ]
