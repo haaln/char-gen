@@ -54,9 +54,11 @@ elf_female_firstname = [ "Melladiel", "Amonthea", "Mordiliel", "Arwyn", "Aniel",
 elf_surname = [ "Rololinde", "Nhatanthar", "Isiliethor", "Mithlithdal", "Lartansel", "Neltanda", "Gwaeth", "Faelandalan", "Elerval", "Talbrinthor", "Nhaethelen" ]
 
 color = [ "Red", "Yellow", "Orange", "Blue", "Green", "Violet", "Pink" ]
-adjective [ "Swift", "Hungry", "Eagle-eyed", "Vicious", "Cowardly", "Crafty", "Ruthless" ]
-noun = [ "Beaver", "Hawk", "Snake", "Rat", "Storm", "Fighter", "Joker", "Eagle", "Tiger", "Leopard", "Marmot" ]
+adjective [ "Swift", "Hungry", "Eagle-eyed", "Vicious", "Cowardly", "Crafty", "Ruthless", "Sneaky", "Tired", "Despondent" ]
+noun = [ "Beaver", "Hawk", "Snake", "Rat", "Storm", "Fighter", "Joker", "Eagle", "Tiger", "Leopard", "Marmot", "Soul" ]
 # need to add category/style to function properly
+
+surname_nickname = [ random.choice(
 
 nickname = [random.choice(color) + " " + random.choice(noun), random.choice(adjective) + " " + random.choice(noun) ]
 
@@ -71,5 +73,5 @@ human_surname = [ random.choice(surname_prefix)+random.choice(surname_suffix), r
 elf_firstname = [ random.choice(male_firstname_elf), random.choice(female_firstname_elf) ]
 elf_surname = [ random.choice(elf_surname) ]
 
-first_name = [ human_firstname, dwarf_firstname, elf_firstname]
-surname = [ human_surname, dwarf_surnam, elf_surname ]
+first_name = [ human_firstname, dwarf_firstname, elf_firstname, nickname_firstname ]
+surname = [ human_surname, dwarf_surnam, elf_surname, surname_nickname  ]
