@@ -1,5 +1,7 @@
 import random
 
+# add optional escape clause for goal/account type
+
 def constraints(difficulty=0):
     restrictionss = random.choice(account_type)
     return restrictionss

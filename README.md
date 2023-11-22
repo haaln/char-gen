@@ -4,6 +4,12 @@ a program to quickly generate character name according to common constraints wit
 
 * GUI
 
+## To-do
+
+- GUI
+- name constraints (i.e length, spaces)
+- add historic/roman/greek style names
+ 
 
 ### Features
 
@@ -28,6 +34,7 @@ a program to quickly generate character name according to common constraints wit
 - Playthrough limitations
 - Character goals
 - Difficulty setting (e.g OSaaT / Pacifist )
+    - escape clause (e.g. if pacifist; achieve X before removing clause)
     - re-roll character / Pick among X generations
 
 
