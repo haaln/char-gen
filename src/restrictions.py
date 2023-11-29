@@ -1,7 +1,5 @@
 import random
 
-# add optional escape clause for goal/account type
-
 def constraints(difficulty=0):
     restrictionss = random.choice(account_type)
     return restrictionss
@@ -23,3 +21,13 @@ goal = [ "You must equally progress in life skills as combat skills.",
          "You must obtain a leaderboard rank in one aspect.",
          "You must complete everything possible in one area before you may unlock a new area previously not visited",
          "You must make a second character alongside your current and progress equally in different paths." ]
+
+escape_clause = [
+        "Achieve highest rank in anything.",
+        "Complete all quests.",
+        "Obtain one piece of the strongest equipment available.",
+        "Explore/Unlock all of the world.",
+        "Read and understand all the lore.",
+        "Obtain the best mount.",
+        "Obtain the rarest item in the game (within given ruleset)."
+        ]
