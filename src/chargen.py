@@ -13,8 +13,11 @@ def im_gen():
 if __name__ == '__main__':
     for i in range(1,10):
         print(names.generate_firstname() + " " + names.generate_surname())
-#   print(restrictions.constraints())
+        rs = restrictions.constraints(True,True,True)
+        for i in range(1,len(rs)):
+            print(rs[i])
 #   print(backstory.character_background())
+        print("\n")
 
 
 
