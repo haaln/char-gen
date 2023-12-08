@@ -6,34 +6,36 @@ import random
 def constraints(acc = True, goals = False, escape = False):
         restrictionss = []
         if acc:
-                restrictionss.append(random.choice(account_type))
+                restrictionss.append("restriction:      " + random.choice(account_type))
         if goals:
-                restrictionss.append(random.choice(goal))
+                restrictionss.append("goal:             " + random.choice(goal))
         if escape:
-                restrictionss.append(random.choice(escape_clause))
+                restrictionss.append("escape clause:    " + random.choice(escape_clause))
         return restrictionss
 
 
 account_type = [
-        "You have no restrictions.",
-        "You are a skiller account.",
-        "You are an OSaaT account.",
-        "You are an Ironman account.",
-        "You are a Hardcore Ironman account.",
-        "You are an Ultimate Ironman account.",
-        "You are an Ultimate Hardcore Ironman account.",
-        "You are an area restricted account. (complete everything possible to move on to next area)",
-        "You must make a second character (no restrictions) alongside your current and progress equally in different paths.",
-        "You are a Bronze man.",
-        "You are a PvP only account.",
-        "You are a PvE only account."
+        "No restrictions.",
+        "Skiller.",
+        "OSaaT.",
+        "Ironman.",
+        "Hardcore Ironman.",
+        "Ultimate Ironman.",
+        "Ultimate Hardcore Ironman.",
+        "Area restricted. (complete everything possible to move on to next area, backtrack whenever possible)",
+        "Make a second character (no restrictions) alongside your current and progress equally in different paths.",
+        "Bronzeman.",
+        "PvP only.",
+        "PvE only.",
         "Obtain the the BiS-items on your own without help.",
         "Equally progress in life skills as combat skills.",
         ]
 
 goal = ["No explicit character objectives.",
         "Complete the entire game. (Completionist)",
-        "Obtain a leaderboard rank in one aspect."
+        "Obtain a leaderboard rank in one aspect.",
+        "Obtain rank 1 in any PvP setting.",
+        "Obtain rank 1 in any PvE setting.",
         ]
 
 escape_clause = [
@@ -44,5 +46,5 @@ escape_clause = [
         "Explore/Unlock all of the world.",
         "Read and understand all the lore.",
         "Obtain the best mount.",
-        "Obtain the rarest item in the game (within given ruleset)."
+        "Obtain the rarest item in the game (within given ruleset).",
         ]

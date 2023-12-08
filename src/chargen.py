@@ -14,7 +14,7 @@ if __name__ == '__main__':
     for i in range(1,10):
         print(names.generate_firstname() + " " + names.generate_surname())
         rs = restrictions.constraints(True,True,True)
-        for i in range(1,len(rs)):
+        for i in range(0,len(rs)):
             print(rs[i])
 #   print(backstory.character_background())
         print("\n")
