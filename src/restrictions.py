@@ -23,7 +23,7 @@ account_type = [
         "Ultimate Ironman.",
         "Ultimate Hardcore Ironman.",
         "Area restricted. (complete everything possible to move on to next area, backtrack whenever possible)",
-        "Make a second character (no restrictions) alongside your current and progress equally in different paths.",
+        "Make a second character (no restrictions) alongside and progress equally in different paths.",
         "Bronzeman.",
         "PvP only.",
         "PvE only.",

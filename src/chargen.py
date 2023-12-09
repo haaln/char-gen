@@ -3,6 +3,7 @@
 import names
 import backstory
 import restrictions
+import PySimpleGUI as sg
 
 def goals():
     return
@@ -20,11 +21,26 @@ if __name__ == '__main__':
         print("\n")
 
 
+sg.set_options(text_justification='right')
+
+layout = [ [sg.Text('Char-gen v.0.01')],
+           [sg.Checkbox('First name'), sg.Checkbox('Surname')],
+           [sg.Text('_' * 100, size=(65,1))],
+           [sg.Text('Style')],
+           [sg.Radio('Simple algorithm')],
+           [sg.Radio('FFXIV')],
+           [sg.Radio('Realistic')],
+           [sg.Radio('Nickname')],
+           [sg.Radio('Dwarf'), sg.Radio('Elf')],
+           [sg.Text('_' * 100, size=(65,1))],
+           [sg.CheckBox('Restrictions')],
+           [sg.Checkbox('Backstory')],
+           [sg.Submit(), sg.Cancel()] ]
 
 
+window = sg.Window('character generator')
 
-
-
+event, values = window.read()
 
 
 
