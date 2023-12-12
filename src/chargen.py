@@ -11,53 +11,54 @@ def goals():
 def im_gen():
     return
 
-if __name__ == '__main__':
-    for i in range(1,10):
-        print(names.generate_firstname() + " " + names.generate_surname())
-        rs = restrictions.constraints(True,True,True)
-        for i in range(0,len(rs)):
-            print(rs[i])
-#   print(backstory.character_background())
-        print("\n")
+#if __name__ == '__main__':
+#    for i in range(1,10):
+#        print(names.generate_firstname() + " " + names.generate_surname())
+#        rs = restrictions.constraints(True,True,True)
+#        for i in range(0,len(rs)):
+#            print(rs[i])
+##   print(backstory.character_background())
+#        print("\n")
 
 
 sg.set_options(text_justification='right')
 
 sg.theme('Dark')
-layout = [ [sg.Text('Char-gen v.0.01')],
-           [sg.Text('Main', font=('Helvetica', 15))],
-           [sg.Checkbox('First name'), sg.Checkbox('Surname')],
-           [sg.Radio('Male', 1), sg.Radio('Female', 1)],
-#          [sg.Checkbox('Show advanced settings')],
-#          [sg.Checkbox('Length constraint'), sg.Spin(values=[i for i in range(1,16)], initial_value=9, size=(4,1))],
-#          [sg.Checkbox('Exclude characters'), sg.InputText(size=(10,1))],
-#          [sg.Checkbox('Include characters'), sg.InputText(size=(10,1))],
-#          [sg.Checkbox('Allow spaces'), sg.Checkbox('Replace spaces with underscores')],
-#          [sg.Checkbox('Begins with: '), sg.InputText(size=(10,1)), sg.Checkbox('Ends with: '), sg.InputText(size=(10,1))],
-#          [sg.Radio('Manually choose name', 4)],
-#          [sg.Checkbox('First name: '), sg.InputText(size=(10,1)), sg.Checkbox('Surname: '), sg.InputText(size=(10,1))],
-#          [sg.Radio('generate similar to: ', 4), sg.Text('First name: '), sg.InputText(size=(10,1)), sg.Text('Last name: '), sg.InputText(size=(10,1))],
-           [sg.Text('_' * 100, size=(65,1))],
-           [sg.Text('Naming convention', font=('Helvetica', 15))],
-           [sg.Radio('Fantasy', 2), sg.Radio('Human', 6), sg.Radio('Dwarven', 6), sg.Radio('Elven', 6)],
-           [sg.Radio('FFXIV', 2), sg.Radio('Hyur', 3), sg.Radio('Lalafell', 3)],
-           [sg.Radio('Nickname', 2)],
-           [sg.Radio('Realistic', 2)],
-#          [sg.Radio('Historic', 2)],
-#          [sg.Radio('Nordic', 2)],
-#          [sg.Radio('Greek / Roman', 2)],
-#          [sg.Radio('Japanese', 2)],
-#          [sg.Radio('Korean', 2)],
-#          [sg.Radio('Chinese', 2)],
-           [sg.Text('_' * 100, size=(65,1))],
-           [sg.Text('Additional features', font=('Helvetica', 15))],
-           # add conditional checkbox
-           [sg.Checkbox('Character restrictions'), sg.Checkbox('Objectives'), sg.Checkbox('Escape clause')],
-           [sg.Checkbox('Character backstory')],
-#          [sg.Checkbox('Character portrait'), sg.Text('include tags: '), sg.InputText(size=(10,1)), sg.Text('exclude tags: '), sg.InputText(size=(10,1))],
-           [sg.Text('_' * 100, size=(65,1))],
-           #[sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], initial_value=1, size=(4, 1)), sg.Text('character(s).')],
-           [sg.Button('Generate'), sg.Cancel()] ]
+layout = [[sg.Text('Char-gen v.0.01')],
+          [sg.Text('Main', font=('Helvetica', 15))],
+          [sg.Checkbox('First name', default=True), sg.Checkbox('Surname', default=True)],
+          [sg.Radio('Male', 1, default=True), sg.Radio('Female', 1)],
+#         [sg.Checkbox('Show advanced settings')],
+#         [sg.Checkbox('Length constraint'), sg.Spin(values=[i for i in range(1,16)], initial_value=9, size=(4,1))],
+#         [sg.Checkbox('Exclude characters'), sg.InputText(size=(10,1))],
+#         [sg.Checkbox('Include characters'), sg.InputText(size=(10,1))],
+#         [sg.Checkbox('Allow spaces'), sg.Checkbox('Replace spaces with underscores')],
+#         [sg.Checkbox('Begins with: '), sg.InputText(size=(10,1)), sg.Checkbox('Ends with: '), sg.InputText(size=(10,1))],
+#         [sg.Radio('Manually choose name', 4)],
+#         [sg.Checkbox('First name: '), sg.InputText(size=(10,1)), sg.Checkbox('Surname: '), sg.InputText(size=(10,1))],
+#         [sg.Radio('generate similar to: ', 4), sg.Text('First name: '), sg.InputText(size=(10,1)), sg.Text('Last name: '), sg.InputText(size=(10,1))],
+          [sg.Text('_' * 100, size=(65,1))],
+          [sg.Text('Naming convention', font=('Helvetica', 15))],
+          [sg.Radio('Simple', 2, default=True, key='simple', enable_events=True)],
+#         [sg.Radio('Tolkien', 2), sg.Radio('Human', 6), sg.Radio('Dwarven', 6), sg.Radio('Elven', 6)],
+          [sg.Radio('FFXIV', 2, key='ffxiv', enable_events=True), sg.Radio('Hyur', 3, disabled=True, key='ffxiv_hyur'), sg.Radio('Lalafell', 3, disabled=True, key='ffxiv_lala')],
+          [sg.Radio('Nickname', 2, key='nickname', enable_events=True)],
+          [sg.Radio('Realistic', 2, key='realistic', enable_events=True)],
+#         [sg.Radio('Historic', 2)],
+#         [sg.Radio('Nordic', 2)],
+#         [sg.Radio('Greek / Roman', 2)],
+#         [sg.Radio('Japanese', 2)],
+#         [sg.Radio('Korean', 2)],
+#         [sg.Radio('Chinese', 2)],
+          [sg.Text('_' * 100, size=(65,1))],
+          [sg.Text('Additional features', font=('Helvetica', 15))],
+          # add conditional checkbox
+          [sg.Checkbox('Character restrictions', key='character_restrictions', enable_events=True), sg.Checkbox('Objectives', key='char_objectives', disabled=True), sg.Checkbox('Escape clause', key='char_esc_clause', disabled=True)],
+          [sg.Checkbox('Character backstory')],
+#         [sg.Checkbox('Character portrait'), sg.Text('include tags: '), sg.InputText(size=(10,1)), sg.Text('exclude tags: '), sg.InputText(size=(10,1))],
+          [sg.Text('_' * 100, size=(65,1))],
+          #[sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], initial_value=1, size=(4, 1)), sg.Text('character(s).')],
+          [sg.Button('Generate'), sg.Cancel()] ]
 
 #layout_tabs = [
 #                   [name('Tab, TabGroup'), sg.TabGroup([[sg.Tab('Tab1',[[sg.T(s=(15,2))]]), sg.Tab('Tab2', [[]])]])],]
@@ -65,9 +66,30 @@ layout = [ [sg.Text('Char-gen v.0.01')],
 
 window = sg.Window('character generator', layout)
 
-event, values = window.read()
+while True:
+    event, values = window.read()
+
+    if values['ffxiv'] == True:
+        window["ffxiv_hyur"].update(disabled=False)
+        window["ffxiv_lala"].update(disabled=False)
+        pass
+    elif values['ffxiv'] == False:
+        window["ffxiv_hyur"].update(disabled=True)
+        window["ffxiv_lala"].update(disabled=True)
+        pass
+
+    if values['character_restrictions'] == True:
+        window["char_objectives"].update(disabled=False)
+        window["char_esc_clause"].update(disabled=False)
+        pass
+    elif values['character_restrictions'] == False:
+        window["char_objectives"].update(disabled=True)
+        window["char_esc_clause"].update(disabled=True)
+        pass
 
 
+
+window.close()
 
 
 # kind of unnecessary when there is no generation-name or fitness randomization
