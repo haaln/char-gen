@@ -1,23 +1,33 @@
+#!/usr/bin/env python3
+
 import random
 
-#def constraints(difficulty=0):
-#    restrictionss = random.choice(account_type)
-#    return restrictionss
-def constraints(acc = True, goals = False, escape = False):
-        restrictionss = []
-        if acc:
-                restrictionss.append("restriction:      " + random.choice(account_type))
-        if goals:
-                restrictionss.append("goal:             " + random.choice(goal))
-        if escape:
-                restrictionss.append("escape clause:    " + random.choice(escape_clause))
-        return restrictionss
+def generate_restrictions(restrict='character_restrictions', goals=None, escape=None):
+        constraints = []
+        match restrict:
+                case 'character_restrictions':
+                        constraints.append(random.choice(account_type))
+        match goals:
+                case 'character_objective':
+                        constraints.append(random.choice(goal))
+                case 'character_esc_clause':
+                        constraints.append(random.choice(escape_clause))
+                case _:
+                        print('error, no goal argument found')
+                        print('goals = ' + str(goals))
+        match escape:
+                case 'character_esc_clause':
+                        constraints.append(random.choice(escape_clause))
+                case _:
+                        print('error, no escape argument found')
+                        print('escape = ' + str(escape))
+        return constraints
 
 
 account_type = [
         "No restrictions.",
         "Skiller.",
-        "OSaaT.",
+        "OSaaT (One Skil at a Time, where you must train chosen skill to the highest level before doing anything else)",
         "Ironman.",
         "Hardcore Ironman.",
         "Ultimate Ironman.",
@@ -48,3 +58,7 @@ escape_clause = [
         "Obtain the best mount.",
         "Obtain the rarest item in the game (within given ruleset).",
         ]
+
+if __name__ == '__main__':
+        for i in range(10):
+                print(generate_restrictions('character_restrictions','character_objective','character_esc_clause'))

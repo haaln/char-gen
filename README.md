@@ -2,14 +2,17 @@
 
 a program to quickly generate character name according to common constraints with additional options such as backstory, playthrough-limitations or trivial goals
 
-* GUI
-
 ## To-do
 
-- GUI
 - name constraints (i.e length, spaces)
-- add historic/roman/greek style names
- 
+- add tolkien/historic/roman/greek/korean/japanese/chinese/nordic style names
+- generate names like X
+- alternate name generation method (markov chain,  procedural, ai)
+- generate similar names to
+- pre-determined beginning/end
+- re-roll X (i.e re-roll only name, restriction or class)
+- difficulty setting
+- add a few more goals/restrictions/escape clauses
 
 ### Features
 
@@ -38,16 +41,14 @@ a program to quickly generate character name according to common constraints wit
     - re-roll character / Pick among X generations
 
 
-
-#
-name generation
+### name generation
 - algorithmic
 - pre-determined beginnings and endings
 - markov chain
 - generate similar name (based on input)
  
 
-## AI
+### AI
 - use tags to feed into chat GPT to provide a character background
 - use tags to feed into stable diffufsion
     - image creation based on generated character
