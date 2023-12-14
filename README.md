@@ -13,6 +13,7 @@ a program to quickly generate character name according to common constraints wit
 - re-roll X (i.e re-roll only name, restriction or class)
 - difficulty setting
 - add a few more goals/restrictions/escape clauses
+- overhaul GUI
 
 ### Features
 

@@ -2,32 +2,22 @@
 
 import random
 
-def generate_restrictions(restrict='character_restrictions', goals=None, escape=None):
+def generate_restrictions(restrict=None, goals=None, escape=None):
         constraints = []
-        match restrict:
-                case 'character_restrictions':
-                        constraints.append(random.choice(account_type))
-        match goals:
-                case 'character_objective':
-                        constraints.append(random.choice(goal))
-                case 'character_esc_clause':
-                        constraints.append(random.choice(escape_clause))
-                case _:
-                        print('error, no goal argument found')
-                        print('goals = ' + str(goals))
-        match escape:
-                case 'character_esc_clause':
-                        constraints.append(random.choice(escape_clause))
-                case _:
-                        print('error, no escape argument found')
-                        print('escape = ' + str(escape))
+        if restrict:
+                constraints.append(random.choice(account_type))
+        if goals:
+                constraints.append(random.choice(goal))
+        if escape:
+                constraints.append(random.choice(escape_clause))
         return constraints
 
 
 account_type = [
         "No restrictions.",
         "Skiller.",
-        "OSaaT (One Skil at a Time, where you must train chosen skill to the highest level before doing anything else)",
+        #"OSaaT (One Skil at a Time, where you must train chosen skill to the highest level before doing anything else)",
+        "OSaaT",
         "Ironman.",
         "Hardcore Ironman.",
         "Ultimate Ironman.",

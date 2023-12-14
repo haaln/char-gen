@@ -44,9 +44,10 @@ layout = [[sg.Text('Character generator')],
           [sg.Checkbox('Character restrictions', key=('character_restrictions', 'restrictions'), enable_events=True, tooltip=' Generate a character restriction such as Ironman mode '), \
                sg.Checkbox('Objectives', tooltip=' Provides a random goal to achieve with this character ', key=('character_objectives', 'restrictions'), disabled=True), \
                sg.Checkbox('Escape clause', tooltip=' Allow a condition where if fulfilled, you may forego your character restriction ', key=('character_esc_clause', 'restrictions'), disabled=True)],
-          [sg.Checkbox('Character backstory', key='character_backstory')],
+          [sg.Checkbox('Character background', tooltip=' Generates random trivia ', key='character_backstory')],
           [sg.Checkbox('Character class', key='character_class', enable_events=True, tooltip=' Picks a random class for the character depending on game '), \
-               sg.Combo(values=['Black Desert', 'FFXIV', 'World of Warcraft', 'Unspecified'], default_value=['Unspecified'], disabled=True, enable_events=True, key='character_class_combo', readonly=True)],
+               sg.Combo(values=['Black Desert', 'FFXIV', 'World of Warcraft', 'Unspecified'], default_value=['Unspecified'], disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
+               sg.Checkbox('Genderlock class choice', default=True, key='character_class_genderlock', visible=False)],
 #         [sg.Checkbox('Character portrait'), sg.Text('include tags: '), sg.InputText(size=(10,1)), sg.Text('exclude tags: '), sg.InputText(size=(10,1))],
           [sg.Text('_' * 100, size=(65,1))],
           #[sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], initial_value=1, size=(4, 1)), sg.Text('character(s).')],
@@ -69,11 +70,8 @@ while True:
         pass
     else:
         window[("ffxiv_hyur", 'style')].update(disabled= True)
-#        window[("ffxiv_hyur", 'style')].update(value= False)
         window[("ffxiv_lala", 'style')].update(disabled= True)
-#        window[("ffxiv_lala", 'style')].update(value= False)
         window[("ffxiv_miqote",'style')].update(disabled=True)
-#        window[("ffxiv_miqote", 'style')].update(value= False)
         window[("ffxiv_aura",'style')].update(disabled=True)
         pass
 
@@ -90,6 +88,11 @@ while True:
         pass
     else:
         window['character_class_combo'].update(disabled=True)
+
+    if values['character_class'] == True and values['character_class_combo'] == 'Black Desert':
+        window['character_class_genderlock'].update(visible=True)
+    else:
+        window['character_class_genderlock'].update(visible=False)
 
 
     if event == 'generate':
@@ -127,11 +130,11 @@ while True:
         elif 'firstname' not in l:
             print(lastname)
 
-        #r = [item for item in l if item[1] == 'restrictions']
-        #if r:
-        #    if r[0][0] == 'character_restrictions':
-        #        character_restriction = restrictions.generate_restrictions(r[0][0])
-        #        print(character_restriction)
+        r = [item[0] for item in l if item[1] == 'restrictions']
+        if r:
+            if r[0] == 'character_restrictions':
+                character_restriction = restrictions.generate_restrictions(restrict=values[('character_restrictions','restrictions')],goals=values[('character_objectives','restrictions')],escape=values[('character_esc_clause','restrictions')])
+                print(character_restriction)
 
         if 'character_backstory' in l:
             lore = backstory.generate_background()
@@ -139,7 +142,7 @@ while True:
 
         if 'character_class' in l:
             game = values['character_class_combo']
-            char_class = character_class.generate_class(game=game)
+            char_class = character_class.generate_class(game=game, sex=sex, genderlock=values['character_class_genderlock'])
             print(char_class)
 
         pass
