@@ -32,7 +32,7 @@ trait = [ "agile", "witty", "simple", "honest", "taciturn", "crafty", "pragmatic
 
 achievement = ["Your greatest skill is being able to remain standing in any drinking contest.",
                "You have never been defeated in a game of dice.",
-               "Your greatest achievement was when you won a stare down against a homeless dog.",
+               "Your greatest achievement was when you won a stare down against a stray dog.",
                "Your most prideful moment was when you bested a blind man in a bar fight."]
 
 exposition = [ "You have a serious dislike for DISLIKE",

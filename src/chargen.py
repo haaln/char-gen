@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import names
 import backstory
 import restrictions
@@ -114,6 +115,7 @@ while True:
         sex   = [item for item in l if item[1] == 'sex'][0][0]
 
         if 'firstname' in l:
+            os.system('cls' if os.name == 'nt' else 'clear')
             firstname = names.generate_firstname(sex=sex,style=style)
         else:
             firstname = ""

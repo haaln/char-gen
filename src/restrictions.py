@@ -14,7 +14,7 @@ def generate_restrictions(restrict=None, goals=None, escape=None):
 
 
 account_type = [
-        "No restrictions.",
+        #"No restrictions.",
         "Skiller.",
         #"OSaaT (One Skil at a Time, where you must train chosen skill to the highest level before doing anything else)",
         "OSaaT",
