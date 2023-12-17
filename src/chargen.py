@@ -14,15 +14,29 @@ layout = [[sg.Text('Character generator')],
           [sg.Text('Main', font=('Helvetica', 15))],
           [sg.Checkbox('First name', default=True, key='firstname'), sg.Checkbox('Surname', default=True, key='surname')],
           [sg.Radio('Male', 1, default=True, key=('male', 'sex')), sg.Radio('Female', 1, key=('female', 'sex'))],
-#         [sg.Checkbox('Enable advanced settings', enable_events=True, key='advanced_options')],
-#         [sg.Checkbox('Length constraint', key='length_constraint', enable_events=True, disabled=True), sg.Spin(values=[i for i in range(1,16)], initial_value=9, size=(4,1), key='length_spinner', enable_events=True, disabled=True)],
-#         [sg.Checkbox('Exclude characters',key='exclude_char_checkbox', enable_events=True, disabled=True), sg.InputText(size=(10,1),key='exclude_char_input', enable_events=True, disabled=True)],
-#         [sg.Checkbox('Include characters',key='include_char_checkbox', enable_events=True, disabled=True), sg.InputText(size=(10,1),key='include_char_input',enable_events=True, disabled=True)],
-#         [sg.Checkbox('Allow spaces', key='allow_spaces', enable_events=True, disabled=True), sg.Checkbox('Replace spaces with underscores', key='replace_space_underscore', enable_events=True, disabled=True)],
-#         [sg.Checkbox('Begins with: '), sg.InputText(size=(10,1)), sg.Checkbox('Ends with: '), sg.InputText(size=(10,1))],
-#         [sg.Radio('Manually choose name', 4)],
-#         [sg.Checkbox('First name: '), sg.InputText(size=(10,1)), sg.Checkbox('Surname: '), sg.InputText(size=(10,1))],
-#         [sg.Radio('generate similar to: ', 4), sg.Text('First name: '), sg.InputText(size=(10,1)), sg.Text('Last name: '), sg.InputText(size=(10,1))],
+#         [sg.Checkbox('Enable advanced settings', enable_events=True, default=False, key='advanced_checkbox')],
+#         [sg.Checkbox('Length constraint', key=('length_constraint','advanced_options'), enable_events=True, disabled=True), \
+#             sg.Spin(values=[i for i in range(1,16)], initial_value=9, size=(4,1), key=('length_spinner','advanced_options'), enable_events=True, disabled=True)],
+#         [sg.Checkbox('Exclude characters',key=('exclude_char_checkbox','advanced_options'), enable_events=True, disabled=True), \
+#             sg.InputText(size=(10,1),key=('exclude_char_input','advanced_options'), enable_events=True, disabled=True)],
+#         [sg.Checkbox('Include characters',key=('include_char_checkbox','advanced_options'), enable_events=True, disabled=True), \
+#             sg.InputText(size=(10,1), key=('include_char_input','advanced_options'), enable_events=True, disabled=True)],
+#         [sg.Checkbox('Allow spaces', key=('allow_spaces','advanced_options'), enable_events=True, disabled=True), \
+#             sg.Checkbox('Replace spaces with underscores', key=('replace_underscore','advanced_options'), enable_events=True, disabled=True)],
+#         [sg.Checkbox('Begins with: ', enable_events=True, k=('begins_with','advanced_options')), \
+#             sg.InputText(size=(10,1), enable_events=True, k=('begins_with_input','advanced_options')), \
+#             sg.Checkbox('Ends with: ', enable_events=True, k=('ends_with','advanced_options')), \
+#             sg.InputText(size=(10,1), enable_events=True, k=('ends_with_input','advanced_options'))],
+#         [sg.Radio('Manually choose name', 4, enable_events=True, k=('manual_name','advanced_options'))],
+#         [sg.Checkbox('First name: ', enable_events=True, k=('man_firstname','advanced_options')), \
+#             sg.InputText(size=(10,1), enable_events=True, k=('man_firstname_input','advanced_options')), \
+#             sg.Checkbox('Surname: ', enable_events=True, k=('man_surname','advanced_options')), \
+#             sg.InputText(size=(10,1), enable_events=True, k=('man_surname_input','advanced_options'))],
+#         [sg.Radio('generate similar to: ', 2, enable_events=True, k=('similar_to','advanced_options')), \
+#             sg.Text('First name: ', enable_events=True, k=('similar_firstname','advanced_options')), \
+#             sg.InputText(size=(10,1), enable_events=True, k=('similar_firstname_input','advanced_options')), \
+#             sg.Text('Last name: ', enable_events=True, k=('similar_surname','advanced_options')), \
+#             sg.InputText(size=(10,1), enable_events=True, k=('similar_surname_input','advanced_options'))],
           [sg.Text('_' * 100, size=(65,1))],
           [sg.Text('Naming convention', font=('Helvetica', 15))],
           [sg.Radio('Simple', 2, default=True, key=('simple', 'style'), enable_events=True)],
@@ -37,7 +51,7 @@ layout = [[sg.Text('Character generator')],
 #         [sg.Radio('Historic', 2)],
 #         [sg.Radio('Nordic', 2)],
 #         [sg.Radio('Greek / Roman', 2)],
-#         [sg.Radio('Japanese', 2)],
+#        [sg.Radio('Japanese', 2, key=('japanese', 'style'), enable_events=True)],
 #         [sg.Radio('Korean', 2)],
 #         [sg.Radio('Chinese', 2)],
           [sg.Text('_' * 100, size=(65,1))],
@@ -153,6 +167,108 @@ while True:
 
 window.close()
 
+#   if values['advanced_checkbox'] == True:
+#       window[('similar_to','advanced_options')].update(visible=True)
+#       window[('similar_to','advanced_options')].update(disabled=False)
+#       window[('length_constraint','advanced_options')].update(visible=True)
+#       window[('length_constraint','advanced_options')].update(disabled=False)
+#       window[('length_spinner','advanced_options')].update(visible=True)
+#       window[('length_spinner','advanced_options')].update(disabled=False)
+#       window[('exclude_char_checkbox','advanced_options')].update(visible=True)
+#       window[('exclude_char_checkbox','advanced_options')].update(disabled=False)
+#       window[('exclude_char_input','advanced_options')].update(visible=True)
+#       window[('exclude_char_input','advanced_options')].update(disabled=False)
+#       window[('allow_spaces','advanced_options')].update(visible=True)
+#       window[('allow_spaces','advanced_options')].update(disabled=False)
+#       window[('replace_underscore','advanced_options')].update(visible=True)
+#       window[('replace_underscore','advanced_options')].update(visible=True)
+#       window[('begins_with','advanced_options')].update(visible=True)
+#       window[('begins_with','advanced_options')].update(disabled=False)
+#       window[('begins_with_input','advanced_options')].update(visible=True)
+#       window[('begins_with_input','advanced_options')].update(disabled=False)
+#       window[('ends_with','advanced_options')].update(visible=True)
+#       window[('ends_with','advanced_options')].update(disabled=False)
+#       window[('ends_with_input','advanced_options')].update(visible=True)
+#       window[('ends_with_input','advanced_options')].update(disabled=False)
+#       window[('include_char_checkbox','advanced_options')].update(visible=True)
+#       window[('include_char_checkbox','advanced_options')].update(disabled=False)
+#       window[('include_char_input','advanced_options')].update(visible=True)
+#       window[('include_char_input','advanced_options')].update(disabled=False)
+#       window[('manual_name','advanced_options')].update(visible=True)
+#       window[('manual_name','advanced_options')].update(disabled=False)
+#       window[('man_firstname','advanced_options')].update(visible=True)
+#       window[('man_firstname','advanced_options')].update(disabled=False)
+#       window[('man_firstname_input','advanced_options')].update(visible=True)
+#       window[('man_firstname_input','advanced_options')].update(disabled=False)
+#       window[('man_surname','advanced_options')].update(visible=True)
+#       window[('man_surname','advanced_options')].update(disabled=False)
+#       window[('man_surname_input','advanced_options')].update(visible=True)
+#       window[('man_surname_input','advanced_options')].update(disabled=False)
+#       window[('similar_firstname','advanced_options')].update(visible=True)
+#       #window[('similar_firstname','advanced_options')].update(disabled=False)
+#       window[('similar_firstname_input','advanced_options')].update(visible=True)
+#       window[('similar_firstname_input','advanced_options')].update(disabled=False)
+#       window[('similar_surname','advanced_options')].update(visible=True)
+#       #window[('similar_surname','advanced_options')].update(disabled=False)
+#       window[('similar_surname_input','advanced_options')].update(visible=True)
+#       window[('similar_surname_input','advanced_options')].update(disabled=False)
+#   else:
+#       window[('similar_to','advanced_options')].update(visible=False)
+#       window[('similar_to','advanced_options')].update(disabled=True)
+#       window[('similar_to','advanced_options')].update(False)
+
+#       window[('include_char_checkbox','advanced_options')].update(visible=False)
+#       window[('include_char_checkbox','advanced_options')].update(disabled=True)
+#       window[('include_char_input','advanced_options')].update(visible=False)
+#       window[('include_char_input','advanced_options')].update(disabled=True)
+#       window[('length_constraint','advanced_options')].update(visible=False)
+#       window[('length_constraint','advanced_options')].update(disabled=True)
+#       window[('length_spinner','advanced_options')].update(visible=False)
+#       window[('length_spinner','advanced_options')].update(disabled=True)
+#       window[('exclude_char_checkbox','advanced_options')].update(visible=False)
+#       window[('exclude_char_checkbox','advanced_options')].update(disabled=True)
+#       window[('exclude_char_input','advanced_options')].update(visible=False)
+#       window[('exclude_char_input','advanced_options')].update(disabled=True)
+#       window[('allow_spaces','advanced_options')].update(visible=False)
+#       window[('allow_spaces','advanced_options')].update(disabled=True)
+#       window[('replace_underscore','advanced_options')].update(disabled=True)
+#       window[('replace_underscore','advanced_options')].update(visible=False)
+#       window[('begins_with','advanced_options')].update(disabled=True)
+#       window[('begins_with','advanced_options')].update(visible=False)
+#       window[('begins_with_input','advanced_options')].update(disabled=True)
+#       window[('begins_with_input','advanced_options')].update(visible=False)
+#       window[('ends_with','advanced_options')].update(disabled=True)
+#       window[('ends_with','advanced_options')].update(visible=False)
+#       window[('ends_with_input','advanced_options')].update(disabled=True)
+#       window[('ends_with_input','advanced_options')].update(visible=False)
+#       window[('manual_name','advanced_options')].update(disabled=True)
+#       window[('manual_name','advanced_options')].update(visible=False)
+#       window[('man_firstname','advanced_options')].update(disabled=True)
+#       window[('man_firstname','advanced_options')].update(visible=False)
+#       window[('man_firstname_input','advanced_options')].update(disabled=True)
+#       window[('man_firstname_input','advanced_options')].update(visible=False)
+#       window[('man_surname','advanced_options')].update(disabled=True)
+#       window[('man_surname','advanced_options')].update(visible=False)
+#       window[('man_surname_input','advanced_options')].update(disabled=True)
+#       window[('man_surname_input','advanced_options')].update(visible=False)
+#       #window[('similar_firstname','advanced_options')].update(disabled=True)
+#       window[('similar_firstname','advanced_options')].update(visible=False)
+#       window[('similar_firstname_input','advanced_options')].update(disabled=True)
+#       window[('similar_firstname_input','advanced_options')].update(visible=False)
+#       #window[('similar_surname','advanced_options')].update(disabled=True)
+#       window[('similar_surname','advanced_options')].update(visible=False)
+#       window[('similar_surname_input','advanced_options')].update(disabled=True)
+#       window[('similar_surname_input','advanced_options')].update(visible=False)
+
+#   if values[('begins_with','advanced_options')] == True or values[('ends_with','advanced_options')] == True:
+#       window[('simple','style')].update(True)
+#       window[('realistic','style')].update(disabled=True)
+#       window['ffxiv'].update(disabled=True)
+#       window[('nickname','style')].update(disabled=True)
+#   else:
+#       window[('realistic','style')].update(disabled=False)
+#       window['ffxiv'].update(disabled=False)
+#       window[('nickname','style')].update(disabled=False)
 
 ## kind of unnecessary when there is no generation-name or fitness randomization
 #class Character:

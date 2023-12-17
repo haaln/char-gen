@@ -29,6 +29,7 @@ import random
 #lalafell_ffxiv_C
 #lalafell_ffxiv_AC
 
+
 # consider removing Japanese names from aura_ffxiv in favor of aura_xaela
 #male_xaela_aura_ffxiv
 #female_xaela_aura_ffxiv
@@ -57,11 +58,13 @@ def generate_firstname(sex=None, style=None, beginning=None, ending=None, specia
             case 'ffxiv_lala':
                 return 'stupid'
             case 'ffxiv_aura':
-                return random.choice(male_aura_ffxiv)
+                return random.choice(male_xaela_aura_ffxiv)
             case 'realistic':
                 return random.choice(male_modern)
             case 'nickname':
                 return random.choice([random.choice(color), random.choice(adjective)])
+            case 'japanese':
+                return random.choice(male_aura_ffxiv)
             case 'dwarf':
                 return random.choice(male_firstname_dwarf)
             case 'elf':
@@ -86,18 +89,20 @@ def generate_firstname(sex=None, style=None, beginning=None, ending=None, specia
             case 'ffxiv_lala':
                 return 'stupid'
             case 'ffxiv_aura':
-                return random.choice(female_aura_ffxiv)
+                return random.choice(female_xaela_aura_ffxiv)
             case 'realistic':
                 return random.choice(female_modern)
             case 'nickname':
                 return random.choice([random.choice(color), random.choice(adjective)])
+            case 'japanese':
+                return random.choice(female_aura_ffxiv)
             case 4:
                 return random.choice(female_firstname_dwarf)
             case 5:
                 return random.choice(female_firstname_elf)
             case _:
                 print("error, no female firstname style found")
-def generate_surname(style=None, beginning=None, ending=None, special_characters=None, length=None):
+def generate_surname(style=None, beginning=None, ending=None, special_characters=None, length=None, sex=None):
     match style:
         case 'simple':
             if(beginning == None and ending == None):
@@ -115,11 +120,13 @@ def generate_surname(style=None, beginning=None, ending=None, special_characters
         case 'ffxiv_lala':
             return 'idiot'
         case 'ffxiv_aura':
-            return random.choice(aura_surname_ffxiv)
+            return random.choice(xaela_aura_surname_ffxiv)
         case 'realistic':
             return random.choice(male_modern)
         case 'nickname':
             return random.choice(noun)
+        case 'japanese':
+            return random.choice(aura_surname_ffxiv)
         case 4:
             return random.choice(dwarf_surname)
         case 5:
@@ -138,7 +145,7 @@ female_prefix = [ "Hua", "Ha", "Ho", "E", "Ya", "Yu", "Ra", "Ria", "Ri", "La", "
 female_suffix = [ "na", "ina", "nia", "nya", "lia", "llie", "li", "la", "leya", "lana", "lena", "ra", "rella", "ria", "reya", "raha", "riha", "ha", "zra", "zia" ]
 
 surname_prefix = ["Green", "Hawk", "Red", "Pierce", "River", "Wood", "Warren", "Gold", "Swift", "Good", "Field", "Ark", "Bell", "Shot" ]
-surname_suffix = ["", "wood", "eye", "caller", "hammer", "runner", "berg", "shield", "stone", "guard", "stein", "man", "burg", "fellow", "man", "mann" ]
+surname_suffix = ["", "wood", "eye", "caller", "hammer", "runner", "berg", "shield", "stone", "guard", "stein", "man", "burg", "fellow", "man"]
 male_elezen_ffxiv = ["Aibertain", "Alderique", "Alexois", "Antoinaut", "Arismont", "Armantel", "Arthurioux", "Artoirel", "Augustiniel", "Aumeric", "Baptistaux", "Barnabaix", "Bernon", "Bloisirant", "Boiselont", "Briardien", "Brunadier", "Celestaux", "Ciceroix", "Cillien", "Clementain", "Clotaire", "Clotairion", "Dacien", "Darceloix", "Domitien", "Duvicauroix", "Emmanellain", "Enguerran", "Estinien", "Eugennoix", "Fabrellet", "Felixient", "Ferreol", "Firmien", "Firminnant", "Florentel", "Florimond", "Francquet", "Gabineaux", "Gaethan", "Gaspard", "Guillaunaux", "Guillefresne", "Gustavain", "Guydelot", "Hadrefort", "Heribert", "Hermenost", "Honoraint", "Hubairtien", "Huguemont", "Isarmoix", "Isaudorel", "Ivaurault", "Jacquemin", "Janremi", "Lancefer", "Landrenel", "Leodaire", "Leonceault", "Lidoiret", "Lionnet", "Louistiaux", "Ludovraint", "Luquelot", "Marcelloix", "Marcquelort", "Mariustel", "Maroile", "Martiallais", "Maurelin", "Maximiloix", "Nantain", "Nolanel", "Octavel", "Oldaric", "Oscarlet", "Parcemel", "Pascaleret", "Paulemont", "Percevains", "Raimondaux", "Romarique", "Silvaire", "Sombrequain", "Stephannot", "Sylveret", "Theobalin", "Theophilain", "Therouanne", "Thiegaud", "Ursulin", "Valentinoix", "Vallerin", "Valtemont", "Vantelme", "Willibert", "Yannistand", "Yvelont" ]
 female_elezen_ffxiv = ["Alboise", "Amandine", "Ameline", "Amenie", "Amianne", "Astrelle", "Atelloune", "Aurelle", "Blaisie", "Blandie", "Breine", "Brigie", "Ceaulie", "Celie", "Cevilia", "Cliaux", "Dennia", "Docette", "Doelle", "Dorys", "Dylise", "Edmelle", "Elde", "Elvide", "Eminne", "Ermiance", "Faine", "Finia", "Flavielle", "Florine", "Frine", "Gaelle", "Gwenolie", "Hermance", "Hersande", "Iliette", "Iolaine", "Ireine", "Janchette", "Jannie", "Joellie", "Jolaine", "Laille", "Liaime", "Lisie", "Loanne", "Lucinne", "Lunnie", "Lycelle", "Maenne", "Marcette", "Margelyne", "Mariaute", "Marielle", "Maunie", "Melisie", "Meurise", "Mianne", "Nellaure", "Nimie", "Ninne", "Nivie", "Noalle", "Noline", "Norlaise", "Odeve", "Odilie", "Ombeline", "Ondine", "Ophelie", "Ophianne", "Oriane", "Percelle", "Perinne", "Perne", "Pienne", "Reinette", "Rivienne", "Roelle", "Saulette", "Selaine", "Sofine", "Solelle", "Sophiane", "Tanine", "Thaisie", "Tiphane", "Trinne", "Trisselle", "Uloine", "Ursielle", "Vianne", "Vielle", "Yaelle", "Ydaine", "Yloise", "Yoenne", "Yolaine", "Ystride", "Zabinie"]
 surname_elezen_wildwood_ffxiv = ["Alamenain", "Arscelin", "Asturmaux", "Aubaints", "Aubierault", "Aubrenard", "Aurifort", "Beltardois", "Bertouaint", "Blodoint", "Branchais", "Cahernaut", "Carrilaut", "Charlemend", "Chaunollet", "Cimeaurant", "Corentiaux", "Coultenet", "Dailemont", "Dariustel", "Drillemont", "Drividot", "Duimessand", "Duremert", "Ebrelnaux", "Estrelaint", "Eurelt", "Faintillaud", "Faucertaux", "Faucillien", "Ferdillaix", "Forchetaix", "Forsemart", "Fraideoux", "Frilaix", "Fromelaut", "Georjeaux", "Gibrillont", "Grillairmais", "Grinnaux", "Guerrique", "Hanrieaux", "Hobriaut", "Hortimont", "Hourlinet", "Hubairtin", "Iseterre", "Janlenoux", "Jantellot", "Jehantel", "Josseloux", "Lanquairt", "Lanverlais", "Larsonient", "Liautroix", "Lionnellais", "Lothaire", "Matigniant", "Mayeulons", "Merthelin", "Mestonnaux", "Miraudont", "Muraudel", "Narmandais", "Nellemond", "Nogeloix", "Norbettaux", "Noudenet", "Oirellain", "Orselfaux", "Ouraux", "Padilloux", "Pamisolaux", "Paulecrain", "Pelderain", "Prairillot", "Primerain", "Quemilien", "Quiloud", "Rainteau", "Raitmeaux", "Rillemont", "Roulemet", "Saistenioux", "Silmontaix", "Solainteau", "Surlaint", "Terremiaux", "Thievenaix", "Tirauland", "Tourcenet", "Travanchet", "Urleaux", "Usurlois", "Valeriant", "Valtin", "Voilinaut", "Vremaix", "Xavalien"]
