@@ -10,7 +10,7 @@ import PySimpleGUI as sg
 sg.set_options(text_justification='right')
 
 sg.theme('Dark')
-layout = [[sg.Text('Character generator')],
+layout = [[sg.Text('Simple character generator')],
           [sg.Text('Main', font=('Helvetica', 15))],
           [sg.Checkbox('First name', default=True, key='firstname'), sg.Checkbox('Surname', default=True, key='surname')],
           [sg.Radio('Male', 1, default=True, key=('male', 'sex')), sg.Radio('Female', 1, key=('female', 'sex'))],
@@ -51,7 +51,7 @@ layout = [[sg.Text('Character generator')],
 #         [sg.Radio('Historic', 2)],
 #         [sg.Radio('Nordic', 2)],
 #         [sg.Radio('Greek / Roman', 2)],
-#        [sg.Radio('Japanese', 2, key=('japanese', 'style'), enable_events=True)],
+        [sg.Radio('Japanese', 2, key=('japanese', 'style'), enable_events=True)],
 #         [sg.Radio('Korean', 2)],
 #         [sg.Radio('Chinese', 2)],
           [sg.Text('_' * 100, size=(65,1))],
@@ -61,9 +61,11 @@ layout = [[sg.Text('Character generator')],
                sg.Checkbox('Escape clause', tooltip=' Allow a condition where if fulfilled, you may forego your character restriction ', key=('character_esc_clause', 'restrictions'), disabled=True)],
           [sg.Checkbox('Character background', tooltip=' Generates random trivia ', key='character_backstory')],
           [sg.Checkbox('Character class', key='character_class', enable_events=True, tooltip=' Picks a random class for the character depending on game '), \
-               sg.Combo(values=['Black Desert', 'FFXIV', 'World of Warcraft', 'Unspecified'], default_value=['Unspecified'], disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
+               sg.Combo(values=['Black Desert', 'FFXIV', 'World of Warcraft', 'Unspecified game'], default_value=['Unspecified game'], disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
                sg.Checkbox('Genderlock class choice', default=True, key='character_class_genderlock', visible=False)],
 #         [sg.Checkbox('Character portrait'), sg.Text('include tags: '), sg.InputText(size=(10,1)), sg.Text('exclude tags: '), sg.InputText(size=(10,1))],
+          [sg.Text('_' * 100, size=(65,1))],
+        #  [sg.Output(size=(62,10), key='-OUTPUT-')],
           [sg.Text('_' * 100, size=(65,1))],
           #[sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], initial_value=1, size=(4, 1)), sg.Text('character(s).')],
           [sg.Button('Generate', enable_events=True, key='generate'), sg.Cancel(key='cancel')] ]
@@ -111,6 +113,7 @@ while True:
 
 
     if event == 'generate':
+        #window['-OUTPUT-'].update('')
         l = []
         x = values.values()
         y = values.keys()
@@ -135,31 +138,38 @@ while True:
             firstname = ""
 
         if 'surname' in l:
-            lastname = names.generate_surname(style=style)
+            lastname = names.generate_surname(style=style, sex=sex)
         else:
             lastname = ""
 
         if 'firstname' in l:
-            print(firstname + " " + lastname)
+            print('Name: ' + firstname + " " + lastname)
         elif 'firstname' and 'surname' not in l:
             pass
         elif 'firstname' not in l:
-            print(lastname)
+            print('Name: ' +lastname)
 
         r = [item[0] for item in l if item[1] == 'restrictions']
         if r:
             if r[0] == 'character_restrictions':
-                character_restriction = restrictions.generate_restrictions(restrict=values[('character_restrictions','restrictions')],goals=values[('character_objectives','restrictions')],escape=values[('character_esc_clause','restrictions')])
-                print(character_restriction)
+                character_restriction = restrictions.generate_restriction(restrict=values[('character_restrictions','restrictions')])
+                print('Restriction: ' + character_restriction)
+                character_goal = restrictions.generate_goals(goals=True, restrict=values[('character_objectives','restrictions')])
+                if character_goal:
+                    print('Goal: ' + character_goal)
+                character_esc_clause = restrictions.generate_esc_clause(escape=True, restrict=values[('character_esc_clause','restrictions')])
+                if values[('character_esc_clause','restrictions')]:
+                    print('Escape clause: ' + character_esc_clause)
+
 
         if 'character_backstory' in l:
             lore = backstory.generate_background()
-            print(lore)
+            print('Background: ' +lore)
 
         if 'character_class' in l:
             game = values['character_class_combo']
             char_class = character_class.generate_class(game=game, sex=sex, genderlock=values['character_class_genderlock'])
-            print(char_class)
+            print('Class: ' + char_class)
 
         pass
     if event == 'cancel':

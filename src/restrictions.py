@@ -2,15 +2,19 @@
 
 import random
 
-def generate_restrictions(restrict=None, goals=None, escape=None):
-        constraints = []
+def generate_restriction(restrict=None):
         if restrict:
-                constraints.append(random.choice(account_type))
-        if goals:
-                constraints.append(random.choice(goal))
-        if escape:
-                constraints.append(random.choice(escape_clause))
-        return constraints
+                return random.choice(account_type)
+
+def generate_goals(restrict=None, goals=None):
+        if restrict:
+                if goals:
+                        return random.choice(goal)
+
+def generate_esc_clause(restrict=None, escape=None):
+        if restrict:
+                if escape:
+                        return random.choice(escape_clause)
 
 
 account_type = [
@@ -22,16 +26,18 @@ account_type = [
         "Hardcore Ironman.",
         "Ultimate Ironman.",
         "Ultimate Hardcore Ironman.",
-        "Area restricted. (complete everything possible to move on to next area, backtrack whenever possible)",
-        "Make a second character (no restrictions) alongside and progress equally in different paths.",
+        #"Area restricted. (complete everything possible to move on to next area, backtrack whenever possible)",
+        "Area restricted.",
+        #"Make a second character (no restrictions) alongside and progress equally in different paths.",
+        "Make a second character (no restrictions).",
         "Bronzeman.",
         "PvP only.",
         "PvE only.",
-        "Obtain the the BiS-items on your own without help.",
+        "Obtain the the Best-in-Slot items on your own without help.",
         "Equally progress in life skills as combat skills.",
         ]
 
-goal = ["No explicit character objectives.",
+goal = [#"No explicit character objectives.",
         "Complete the entire game. (Completionist)",
         "Obtain a leaderboard rank in one aspect.",
         "Obtain rank 1 in any PvP setting.",
@@ -39,7 +45,7 @@ goal = ["No explicit character objectives.",
         ]
 
 escape_clause = [
-        "There are no escape clauses.",
+        #"There are no escape clauses.",
         "Achieve highest rank in anything.",
         "Complete all quests.",
         "Obtain one piece of the strongest equipment available.",
@@ -49,6 +55,6 @@ escape_clause = [
         "Obtain the rarest item in the game (within given ruleset).",
         ]
 
-if __name__ == '__main__':
-        for i in range(10):
-                print(generate_restrictions('character_restrictions','character_objective','character_esc_clause'))
+#if __name__ == '__main__':
+#        for i in range(10):
+#                print(generate_restrictions('character_restrictions','character_objective','character_esc_clause'))
