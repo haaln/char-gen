@@ -1,6 +1,6 @@
 # Character Generator
 
-a program to quickly generate character name according to common constraints with additional options such as backstory, playthrough-limitations or trivial goals
+a program to quickly generate character name with additional options such as backstory, playthrough-limitations or trivial goals
 
 ## To-do
 

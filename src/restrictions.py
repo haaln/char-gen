@@ -32,6 +32,7 @@ account_type = [
         "Make a second character (no restrictions).",
         "Bronzeman.",
         "PvP only.",
+        "F2P+Ironman",
         "PvE only.",
         "Obtain the the Best-in-Slot items on your own without help.",
         "Equally progress in life skills as combat skills.",
