@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os
 import names
 import backstory
@@ -31,17 +29,17 @@ layout = [[sg.Text('Simple character generator')],
                sg.Checkbox('Escape clause', tooltip=' Allow a condition where if fulfilled, you may forego your character restriction ', key=('character_esc_clause', 'restrictions'), disabled=True)],
           [sg.Checkbox('Character background', tooltip=' Generates random trivia ', key='character_backstory')],
           [sg.Checkbox('Character class', key='character_class', enable_events=True, tooltip=' Picks a random class for the character depending on game '), \
-               sg.Combo(values=['Black Desert', 'FFXIV', 'World of Warcraft', 'Unspecified game'], default_value=['Unspecified game'], disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
+               sg.Combo(values=['Unspecified game', 'Black Desert', 'FFXIV', 'World of Warcraft' ], default_value=['Unspecified game'], disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
                sg.Checkbox('Genderlock class choice', default=True, key='character_class_genderlock', visible=False)],
           [sg.Text('_' * 100, size=(65,1))],
-          [sg.Output(size=(62,10), key='-OUTPUT-')],
+          [sg.Output(size=(62,10), key='output')],
           [sg.Text('_' * 100, size=(65,1))],
           [sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], key='generate_amount', initial_value=1, size=(4, 1)), sg.Text('character(s).')],
           [sg.Button('Generate', enable_events=True, key='generate'), sg.Cancel(key='cancel')] ]
 
-window = sg.Window('character generator', layout)
+window = sg.Window('character generator', layout, finalize=True)
 
-while True:
+def canvas():
     event, values = window.read()
 
     if values['ffxiv'] == True:
@@ -76,63 +74,57 @@ while True:
     else:
         window['character_class_genderlock'].update(visible=False)
 
-
     if event == 'generate':
-        window['-OUTPUT-'].update('')
-        l = []
+        window['output'].update('')
+        activated_options = []
         x = values.values()
         y = values.keys()
         for i in range(len(x)):
             if list(x)[i] == True:
-                l.append(list(y)[i])
+                activated_options.append(list(y)[i])
 
-        style = [item for item in l if item[1] == 'style']
+        style = [item for item in activated_options if item[1] == 'style']
         if len(style) == 2 and style[0][0] != 'simple':
             style = style.pop(1)[0]
         elif len(style) == 2 and style[0][0] == 'simple':
             style = 'simple'
-        elif 'ffxiv' in l:
-            style = [item for item in l if item[1] == 'style'][0][0]
+        elif 'ffxiv' in activated_options:
+            style = [item for item in activated_options if item[1] == 'style'][0][0]
 
-        sex   = [item for item in l if item[1] == 'sex'][0][0]
+        sex   = [item for item in activated_options if item[1] == 'sex'][0][0]
 
         for i in range(values['generate_amount']):
-            if 'firstname' in l:
-                os.system('cls' if os.name == 'nt' else 'clear')
+            if 'firstname' in activated_options:
                 firstname = names.generate_firstname(sex=sex,style=style)
             else:
                 firstname = ""
 
-            if 'surname' in l:
+            if 'surname' in activated_options:
                 lastname = names.generate_surname(style=style, sex=sex)
             else:
                 lastname = ""
 
-            if 'firstname' in l:
+            if 'firstname' in activated_options:
                 print('Name: ' + firstname + " " + lastname)
-            elif 'firstname' and 'surname' not in l:
+            elif 'firstname' and 'surname' not in activated_options:
                 pass
-            elif 'firstname' not in l:
-                print('Name: ' +lastname)
+            elif 'firstname' not in activated_options:
+                print('Name: ' + lastname)
 
-        r = [item[0] for item in l if item[1] == 'restrictions']
-        if r:
-            if r[0] == 'character_restrictions':
-                character_restriction = restrictions.generate_restriction(restrict=values[('character_restrictions','restrictions')])
-                print('Restriction: ' + character_restriction)
-                character_goal = restrictions.generate_goals(goals=True, restrict=values[('character_objectives','restrictions')])
-                if character_goal:
-                    print('Goal: ' + character_goal)
-                character_esc_clause = restrictions.generate_esc_clause(escape=True, restrict=values[('character_esc_clause','restrictions')])
-                if values[('character_esc_clause','restrictions')]:
-                    print('Escape clause: ' + character_esc_clause)
+        if values[('character_restrictions', 'restrictions')]:
+            print('Restriction: ' + restrictions.generate_restriction())
 
+            if values[('character_objectives', 'restrictions')]:
+                print('Goal: ' + restrictions.generate_goals())
 
-        if 'character_backstory' in l:
+            if values[('character_esc_clause','restrictions')]:
+                print('Escape clause: ' + restrictions.generate_esc_clause())
+
+        if 'character_backstory' in activated_options:
             lore = backstory.generate_background()
-            print('Background: ' +lore)
+            print('Background: ' + lore)
 
-        if 'character_class' in l:
+        if 'character_class' in activated_options:
             game = values['character_class_combo']
             char_class = character_class.generate_class(game=game, sex=sex, genderlock=values['character_class_genderlock'])
             print('Class: ' + char_class)
@@ -140,6 +132,3 @@ while True:
         pass
     if event == 'cancel':
         window.close()
-
-window.close()
-

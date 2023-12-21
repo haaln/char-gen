@@ -2,25 +2,18 @@
 
 import random
 
-def generate_restriction(restrict=None):
-        if restrict:
-                return random.choice(account_type)
+def generate_restriction():
+        return random.choice(account_type)
 
-def generate_goals(restrict=None, goals=None):
-        if restrict:
-                if goals:
-                        return random.choice(goal)
+def generate_goals():
+        return random.choice(goal)
 
-def generate_esc_clause(restrict=None, escape=None):
-        if restrict:
-                if escape:
-                        return random.choice(escape_clause)
+def generate_esc_clause():
+        return random.choice(escape_clause)
 
 
 account_type = [
-        #"No restrictions.",
         "Skiller.",
-        #"OSaaT (One Skil at a Time, where you must train chosen skill to the highest level before doing anything else)",
         "OSaaT",
         "Ironman.",
         "Hardcore Ironman.",
@@ -38,7 +31,7 @@ account_type = [
         "Equally progress in life skills as combat skills.",
         ]
 
-goal = [#"No explicit character objectives.",
+goal = [
         "Complete the entire game. (Completionist)",
         "Obtain a leaderboard rank in one aspect.",
         "Obtain rank 1 in any PvP setting.",
@@ -46,7 +39,6 @@ goal = [#"No explicit character objectives.",
         ]
 
 escape_clause = [
-        #"There are no escape clauses.",
         "Achieve highest rank in anything.",
         "Complete all quests.",
         "Obtain one piece of the strongest equipment available.",
@@ -56,6 +48,9 @@ escape_clause = [
         "Obtain the rarest item in the game (within given ruleset).",
         ]
 
-#if __name__ == '__main__':
-#        for i in range(10):
-#                print(generate_restrictions('character_restrictions','character_objective','character_esc_clause'))
+if __name__ == '__main__':
+        for i in range(10):
+                print(generate_restriction())
+                print(generate_goals())
+                print(generate_esc_clause())
+                print("\n")
