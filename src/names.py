@@ -50,21 +50,26 @@ import random
 consonants = [ 'b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'w', 'z', 'x', 'v', 'y']
 vowel = [ 'a', 'e', 'i', 'o', 'u']
 
-def generate_firstname(sex=None, style=None, beginning=None, ending=None, special_characters=None, length=None):
+def generate_firstname(sex=None, style=None, beginning='', ending='', special_characters=None, length=None):
     if sex == 'male':
         match style:
             case 'simple':
-                if(beginning == None and ending == None):
+                if(beginning == '' and ending == ''):
                     # sanity check 
                     prefix = random.choice(male_prefix)
                     suffix = random.choice(male_suffix)
-                    if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
+                    if(prefix[-1].lower() in consonants and suffix[0] in consonants and suffix[1] in consonants):
                         return prefix+suffix[1:]
                     else:
                         return prefix+suffix
-                elif(beginning != None and ending == None):
-                    return beginning + random.choice(male_suffix)
-                elif(beginning == None and ending != None):
+                elif(beginning != '' and ending == ''):
+                    prefix = beginning.lower()
+                    suffix = random.choice(male_suffix)
+                    if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
+                        return prefix[:-1].capitalize()+suffix
+                    else:
+                        return prefix + suffix
+                elif(beginning == '' and ending != ''):
                     return random.choice(male_prefix) + ending
                 else:
                     return beginning + ending
@@ -97,11 +102,11 @@ def generate_firstname(sex=None, style=None, beginning=None, ending=None, specia
     else:
         match style:
             case 'simple':
-                if(beginning == None and ending == None):
+                if(beginning == '' and ending == ''):
                     # sanity check 
                     prefix = random.choice(female_prefix)
                     suffix = random.choice(female_suffix)
-                    if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
+                    if(prefix[-1].lower() in consonants and suffix[0] in consonants and suffix[1] in consonants):
                         return prefix+suffix[1:]
                     elif(len(prefix)>2 and prefix[-2] == suffix[0] and prefix[-1] == suffix[1]):
                         return prefix+suffix[2:]
@@ -110,10 +115,30 @@ def generate_firstname(sex=None, style=None, beginning=None, ending=None, specia
                     else:
                         return prefix+suffix
                     return random.choice(female_prefix) + random.choice(female_suffix)
-                elif(beginning != None and ending == None):
-                    return beginning + random.choice(male_suffix)
-                elif(beginning == None and ending != None):
-                    return random.choice(female_prefix) + ending
+                elif(beginning != '' and ending == ''):
+                    prefix = beginning.lower()
+                    suffix = random.choice(female_suffix)
+                    if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
+                        return prefix.capitalize()+suffix[1:]
+                    elif(len(prefix)>2 and prefix[-2] == suffix[0] and prefix[-1] == suffix[1]):
+                        return prefix.capitalize()+suffix[2:]
+                    elif(prefix[-1] == suffix[0]):
+                        return prefix.capitalize()+suffix[1:]
+                    else:
+                        return prefix.capitalize()+suffix
+                    return prefix+suffix
+                elif(beginning == '' and ending != ''):
+                    prefix = random.choice(female_prefix)
+                    suffix = ending
+                    if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
+                        return prefix+suffix[1:]
+                    elif(len(prefix)>2 and prefix[-2].lower() == suffix[0] and prefix[-1] == suffix[1]):
+                        return prefix+suffix[2:]
+                    elif(prefix[-1].lower() == suffix[0]):
+                        return prefix+suffix[1:]
+                    else:
+                        return prefix+suffix
+                    return prefix + suffix
                 else:
                     return beginning + ending
             case 'ffxiv_hyur':
@@ -142,10 +167,10 @@ def generate_firstname(sex=None, style=None, beginning=None, ending=None, specia
             case _:
                 print("error, no female firstname style found")
 
-def generate_surname(style=None, beginning=None, ending=None, special_characters=None, length=None, sex=None):
+def generate_surname(style=None, beginning='', ending='', special_characters=None, length=None, sex=None):
     match style:
         case 'simple':
-            if(beginning == None and ending == None):
+            if(beginning == '' and ending == ''):
                 #prevent same character in a row between joining of prefix suffix
                 suffix = random.choice(surname_suffix)
                 prefix = random.choice(surname_prefix)
@@ -153,12 +178,22 @@ def generate_surname(style=None, beginning=None, ending=None, special_characters
                     return prefix[0:-1]+suffix
                 else:
                     return prefix+suffix
-            elif(beginning != None and ending == None):
-                return beginning + random.choice(surname_suffix)
-            elif(beginning == None and ending != None):
-                return random.choice(surname_prefix) + ending
+            elif(beginning != '' and ending == ''):
+                prefix = beginning.lower()
+                suffix = random.choice(surname_suffix)
+                if(suffix != '' and prefix[-1] == suffix[0]):
+                    return prefix[0:-1].capitalize()+suffix
+                else:
+                    return prefix.capitalize()+suffix
+            elif(beginning == '' and ending != ''):
+                prefix = random.choice(surname_prefix)
+                suffix = ending.lower()
+                if(suffix != '' and prefix[-1] == suffix[0]):
+                    return prefix[0:-1]+suffix
+                else:
+                    return prefix+suffix
             else:
-                return beginning + ending
+                return beginning.capitalize() + ending.lower()
         case 'ffxiv_hyur':
             return random.choice(surname_hyur_ffxiv)
         case 'ffxiv_miqote':
@@ -197,10 +232,10 @@ noun = [ "Lion", "Otter", "Beaver", "Hawk", "Snake", "Rat", "Storm", "Fighter", 
 male_prefix = [ "Ara", "Bo", "Ha", "Hara", "Ho", "Hu", "Isul", "Ma", "Mo", "Mu", "Leo", "Ga", "Ra", "Ro", "Lo", "Go", "Va", "Vo", "Voro", "Vu", "Ve", "Veo", "Ku", "Ko", "Ka" ]
 male_suffix = [ "dan", "don", "do", "dor", "dur", "ndo", "naro", "nard", "raken", "nius", "bo", "nold", "rien", "ren", "rio", "ro", "ros", "rog", "ndil", "nro", "milio", "ilon", "silmo"]
 
-female_prefix = [ "Ae", "Hua", "Ha", "Ho", "E", "Eri", "Ya", "Yu", "Ra", "Ria", "Ri", "La", "Le", "Lu", "Za", "Xa", "Va", "Fe"]
-female_suffix = [ "celle", "cette",  "erith", "na", "nalin", "nia", "nya", "lia", "llie", "li", "lin", "lina", "line", "lyne", "la", "leya", "lana", "lena", "lette", "fina", "ra", "rella", "ria", "reya", "remi", "raha", "riha", "rina", "rine", "rin", "stelle", "stella", "ha", "hana", "zra", "zia", "ya", "yana"]
+female_prefix = [ "Ari", "Anri", "Ae", "Hua", "Ha", "Ho", "E", "Elle", "Emma", "Eri", "Iso", "Mi", "Ya", "Yu", "So", "Sola", "Ra", "Ria", "Ri", "La", "Le", "Lu", "Za", "Xa", "Va", "Fe"]
+female_suffix = [ "celle", "cette",  "erith", "na", "nalin", "nia", "nora", "nya", "lia", "llie", "li", "lin", "lina", "line", "lyne", "la", "leya", "lana", "lena", "lette", "phine", "phira", "ra", "rella", "ria", "reya", "remi", "raha", "riha", "rina", "rine", "rin", "stelle", "stella", "ha", "hana", "zra", "zia", "ya", "yana"]
 
-surname_prefix = [ "Warren", "Acker", "Arms", "Long", "Silver", "Shot", "Strong", "Swift", "Kings", "Dawn", "Green", "Hawk", "Red", "Pierce", "River", "Wood", "Gold", "Good", "Field", "Kirk", "Well", "Rose", "Arkings", "Bell", "Yar" ]
+surname_prefix = [ "North", "South", "West", "East", "Brooks", "Cor", "Warren", "Acker", "Arms", "Long", "Silver", "Shot", "Strong", "Swift", "Kings", "Dawn", "Green", "Hawk", "Red", "Pierce", "River", "Wood", "Gold", "Good", "Field", "Kirk", "Well", "Rose", "Arkings", "Bell", "Yar" ]
 surname_suffix = ["", "bow", "wood", "eye", "caller", "hammer", "runner", "berg", "shield", "stone", "guard", "stein", "man", "burg", "fellow", "man", "son", "creek", "borough", "worth"]
 
 male_elezen_ffxiv = ["Aibertain", "Alderique", "Alexois", "Antoinaut", "Arismont", "Armantel", "Arthurioux", "Artoirel", "Augustiniel", "Aumeric", "Baptistaux", "Barnabaix", "Bernon", "Bloisirant", "Boiselont", "Briardien", "Brunadier", "Celestaux", "Ciceroix", "Cillien", "Clementain", "Clotaire", "Clotairion", "Dacien", "Darceloix", "Domitien", "Duvicauroix", "Emmanellain", "Enguerran", "Estinien", "Eugennoix", "Fabrellet", "Felixient", "Ferreol", "Firmien", "Firminnant", "Florentel", "Florimond", "Francquet", "Gabineaux", "Gaethan", "Gaspard", "Guillaunaux", "Guillefresne", "Gustavain", "Guydelot", "Hadrefort", "Heribert", "Hermenost", "Honoraint", "Hubairtien", "Huguemont", "Isarmoix", "Isaudorel", "Ivaurault", "Jacquemin", "Janremi", "Lancefer", "Landrenel", "Leodaire", "Leonceault", "Lidoiret", "Lionnet", "Louistiaux", "Ludovraint", "Luquelot", "Marcelloix", "Marcquelort", "Mariustel", "Maroile", "Martiallais", "Maurelin", "Maximiloix", "Nantain", "Nolanel", "Octavel", "Oldaric", "Oscarlet", "Parcemel", "Pascaleret", "Paulemont", "Percevains", "Raimondaux", "Romarique", "Silvaire", "Sombrequain", "Stephannot", "Sylveret", "Theobalin", "Theophilain", "Therouanne", "Thiegaud", "Ursulin", "Valentinoix", "Vallerin", "Valtemont", "Vantelme", "Willibert", "Yannistand", "Yvelont" ]
