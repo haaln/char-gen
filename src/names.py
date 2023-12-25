@@ -90,7 +90,7 @@ def generate_firstname(sex=None, style=None, beginning='', ending='', special_ch
             case 'realistic':
                 return random.choice(male_modern)
             case 'nickname':
-                return random.choice([random.choice(color), random.choice(adjective)]) + " " + random.choice(noun)
+                return random.choice(adjective) + " " + random.choice(noun)
             case 'japanese':
                 return random.choice(male_aura_ffxiv)
             case 'dwarf':
@@ -157,7 +157,7 @@ def generate_firstname(sex=None, style=None, beginning='', ending='', special_ch
             case 'realistic':
                 return random.choice(female_modern)
             case 'nickname':
-                return random.choice([random.choice(color), random.choice(adjective)]) + " " + random.choice(noun)
+                return random.choice(adjective) + " " + random.choice(noun)
             case 'japanese':
                 return random.choice(female_aura_ffxiv)
             case 4:
@@ -226,7 +226,8 @@ def generate_surname(style=None, beginning='', ending='', special_characters=Non
 
 
 color = [ "Red", "Yellow", "Orange", "Blue", "Green", "Violet", "Iridescent", "Neon", "Crimson", "Black", "White", "Dark", "Marine" ]
-adjective = [ "Hidden", "Secretive", "Crazy", "Silly", "Insane", "Daft", "Eccentric", "Suspicious", "Swift", "Hungry", "Eagle-eyed", "Vicious", "Cowardly", "Crafty", "Ruthless", "Voracious", "Sneaky", "Tired", "Despondent", "Blazing", "Cunning", "Scheming", "Old", "Greedy", "Armored", "Mad", "Flaming", "Howling", "Rogue", "Undercover", "Sly", "Smiling", "Wild", "Stalking", "Silent", "Steel", "Sinister", "Evil", "Sadistic", "Thieving", "Grubby", "Dirty", "Starved", "Fat", "Slow",  "Big", "Small", "Tiny", "Giant", "Despondent" ]
+adjective = [ "Hidden", "Secretive", "Crazy", "Silly", "Insane", "Daft", "Eccentric", "Strange", "Suspicious", "Swift", "Hungry", "Eagle-eyed", "Vicious", "Cowardly", "Crafty", "Ruthless", "Voracious", "Sneaky", "Tired", "Despondent", "Blazing", "Cunning", "Scheming", "Old", "Greedy", "Armored", "Mad", "Flaming", "Howling", "Rogue", "Undercover", "Sly", "Smiling", "Wild", "Stalking", "Silent", "Steel", "Sinister", "Evil", "Sadistic", "Thieving", "Grubby", "Dirty", "Starved", "Fat", "Slow",  "Big", "Small", "Tiny", "Giant", "Despondent" ]
+adjective.extend(color)
 noun = [ "Lion", "Otter", "Beaver", "Hawk", "Snake", "Rat", "Storm", "Fighter", "Joker", "Eagle", "Tiger", "Soul", "Soldier", "Cobra", "Shadow", "Marmot", "Fox", "Eagle", "Bear", "Scorpion", "Crow", "Wolf", "Disaster", "Raccoon", "Dog", "Cat", "Mango", "Berry"]
 
 male_prefix = [ "Ara", "Bo", "Ha", "Hara", "Ho", "Hu", "Isul", "Ma", "Mo", "Mu", "Leo", "Ga", "Ra", "Ro", "Lo", "Go", "Va", "Vo", "Voro", "Vu", "Ve", "Veo", "Ku", "Ko", "Ka" ]

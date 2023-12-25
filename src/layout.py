@@ -144,7 +144,7 @@ def canvas():
 
             sex   = [item for item in activated_options if item[1] == 'sex'][0][0]
 
-            for i in range(values['generate_amount']):
+            for i in range(int(values['generate_amount'])):
                 if 'firstname' in activated_options:
                     firstname = names.generate_firstname(ending=values[('firstname_ending_input','advanced_options')], beginning=values[('firstname_beginning_input','advanced_options')], sex=sex, style=style)
                 else:
