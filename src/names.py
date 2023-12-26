@@ -2,8 +2,8 @@
 import random
 ############################################################################
 # sex
-#    male      = 0
-#    female    = 1
+#    male  
+#    female
 # style
 #    simple (algorithm)      
 #    ffxiv                   
@@ -111,7 +111,7 @@ def generate_firstname(sex=None, style=None, beginning='', ending='', special_ch
                     elif(len(prefix)>2 and prefix[-2] == suffix[0] and prefix[-1] == suffix[1]):
                         return prefix+suffix[2:]
                     elif(prefix[-1] == suffix[0]):
-                        return prefix+suffix[1:]
+                        return prefix[:-1]+suffix
                     else:
                         return prefix+suffix
                     return random.choice(female_prefix) + random.choice(female_suffix)
@@ -123,7 +123,7 @@ def generate_firstname(sex=None, style=None, beginning='', ending='', special_ch
                     elif(len(prefix)>2 and prefix[-2] == suffix[0] and prefix[-1] == suffix[1]):
                         return prefix.capitalize()+suffix[2:]
                     elif(prefix[-1] == suffix[0]):
-                        return prefix.capitalize()+suffix[1:]
+                        return prefix[:-1].capitalize()+suffix
                     else:
                         return prefix.capitalize()+suffix
                     return prefix+suffix
@@ -135,7 +135,7 @@ def generate_firstname(sex=None, style=None, beginning='', ending='', special_ch
                     elif(len(prefix)>2 and prefix[-2].lower() == suffix[0] and prefix[-1] == suffix[1]):
                         return prefix+suffix[2:]
                     elif(prefix[-1].lower() == suffix[0]):
-                        return prefix+suffix[1:]
+                        return prefix[:-1]+suffix
                     else:
                         return prefix+suffix
                     return prefix + suffix
@@ -233,8 +233,8 @@ noun = [ "Lion", "Otter", "Beaver", "Hawk", "Snake", "Rat", "Storm", "Fighter", 
 male_prefix = [ "Ara", "Bo", "Ha", "Hara", "Ho", "Hu", "Isul", "Ma", "Mo", "Mu", "Leo", "Ga", "Ra", "Ro", "Lo", "Go", "Va", "Vo", "Voro", "Vu", "Ve", "Veo", "Ku", "Ko", "Ka" ]
 male_suffix = [ "dan", "don", "do", "dor", "dur", "ndo", "naro", "nard", "raken", "nius", "bo", "nold", "rien", "ren", "rio", "ro", "ros", "rog", "ndil", "nro", "milio", "ilon", "silmo"]
 
-female_prefix = [ "Ari", "Anri", "Ae", "Hua", "Ha", "Ho", "E", "Elle", "Emma", "Eri", "Iso", "Mi", "Ya", "Yu", "So", "Sola", "Ra", "Ria", "Ri", "La", "Le", "Lu", "Za", "Xa", "Va", "Fe"]
-female_suffix = [ "celle", "cette",  "erith", "na", "nalin", "nia", "nora", "nya", "lia", "llie", "li", "lin", "lina", "line", "lyne", "la", "leya", "lana", "lena", "lette", "phine", "phira", "ra", "rella", "ria", "reya", "remi", "raha", "riha", "rina", "rine", "rin", "stelle", "stella", "ha", "hana", "zra", "zia", "ya", "yana"]
+female_prefix = [ "Aura", "Ara", "Ari", "Anna", "Anri", "Ae", "Ana", "Hua", "Ha", "Ho", "E", "Eli", "Elle", "Emma", "Eri", "Eli", "Iso", "Mi", "Meri", "Luci", "Ya", "Yu", "Yuri", "Yue", "So", "Sola", "Ra", "Ria", "Ri", "Rosa", "La", "Lana", "Le", "Lu", "Za", "Xa", "Va", "Vaha", "Fe"]
+female_suffix = [ "alia", "ania", "aria", "belle", "bella", "celle", "cette",  "dora", "erith", "na", "nalin", "nia", "nora", "nya", "lia", "llie", "li", "lin", "lina", "line", "lyne", "la", "leya", "lana", "lena", "lette", "phine", "phira", "ra", "rella", "ria", "reya", "remi", "raha", "rah", "riha", "rina", "rine", "rin", "stelle", "stella", "stasia", "ha", "hana", "zra", "zia", "ya", "yana"]
 
 surname_prefix = [ "North", "South", "West", "East", "Brooks", "Cor", "Warren", "Acker", "Arms", "Long", "Silver", "Shot", "Strong", "Swift", "Kings", "Dawn", "Green", "Hawk", "Red", "Pierce", "River", "Wood", "Gold", "Good", "Field", "Kirk", "Well", "Rose", "Arkings", "Bell", "Yar" ]
 surname_suffix = ["", "bow", "wood", "eye", "caller", "hammer", "runner", "berg", "shield", "stone", "guard", "stein", "man", "burg", "fellow", "man", "son", "creek", "borough", "worth"]

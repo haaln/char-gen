@@ -144,23 +144,30 @@ def canvas():
 
             sex   = [item for item in activated_options if item[1] == 'sex'][0][0]
 
-            for i in range(int(values['generate_amount'])):
-                if 'firstname' in activated_options:
-                    firstname = names.generate_firstname(ending=values[('firstname_ending_input','advanced_options')], beginning=values[('firstname_beginning_input','advanced_options')], sex=sex, style=style)
-                else:
-                    firstname = ""
+            try:
+                generate_amount = int(values['generate_amount'])
+            except ValueError:
+                print('Enter valid number')
+                generate_amount = None
 
-                if 'surname' in activated_options:
-                    lastname = names.generate_surname(beginning=values[('surname_beginning_input','advanced_options')], ending=values[('surname_ending_input','advanced_options')], style=style, sex=sex)
-                else:
-                    lastname = ""
+            if generate_amount:
+                for i in range(generate_amount):
+                    if 'firstname' in activated_options:
+                        firstname = names.generate_firstname(ending=values[('firstname_ending_input','advanced_options')], beginning=values[('firstname_beginning_input','advanced_options')], sex=sex, style=style)
+                    else:
+                        firstname = ""
 
-                if 'firstname' in activated_options:
-                    print('Name: ' + firstname + " " + lastname)
-                elif 'firstname' and 'surname' not in activated_options:
-                    pass
-                elif 'firstname' not in activated_options:
-                    print('Name: ' + lastname)
+                    if 'surname' in activated_options:
+                        lastname = names.generate_surname(beginning=values[('surname_beginning_input','advanced_options')], ending=values[('surname_ending_input','advanced_options')], style=style, sex=sex)
+                    else:
+                        lastname = ""
+
+                    if 'firstname' in activated_options:
+                        print('Name: ' + firstname + " " + lastname)
+                    elif 'firstname' and 'surname' not in activated_options:
+                        pass
+                    elif 'firstname' not in activated_options:
+                        print('Name: ' + lastname)
 
             if values[('character_restrictions', 'restrictions')]:
                 print('Restriction: ' + restrictions.generate_restriction())
