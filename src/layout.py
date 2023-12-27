@@ -42,7 +42,6 @@ layout = [
          ]
 
 tab_1 = layout
-#tab_2 = [[sg.T('This is inside tab 2')], [sg.In(key='in')]]
 
 tab_2 = [
          [sg.Text(' ', font=('Helvetica', 15))],
@@ -58,11 +57,10 @@ tab_2 = [
              sg.Text('Ends with: '),   sg.InputText(size=(10,1), disabled=False, enable_events=True, k=('surname_ending_input','advanced_options'))]
         ]
 
-#right_click_menu = ['', 'Generate similar to']
 all_layout =  [
                [sg.TabGroup([[sg.Tab('Main', tab_1), sg.Tab('Advanced name options', tab_2)]])],
                [sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], key='generate_amount', initial_value=1, size=(4, 1)), sg.Text('character(s).')],
-               [sg.Output(size=(64,10), echo_stdout_stderr=True, key='output')],
+               [sg.Output(size=(43,10), echo_stdout_stderr=True, key='output', font=('Helvetica', 15))],
                [sg.Button('Generate', enable_events=True, key='generate', bind_return_key=True, focus=True), sg.Cancel(key='cancel')]
               ]
 
@@ -73,11 +71,6 @@ window['generate'].set_focus()
 def canvas():
     while True:
         event, values = window.read()
-
-#        if event == 'Generate similar to':
-#            txt = window['output'].get()
-#            name = txt.split('Name:')
-#            print(name[1:])
 
         if values[('man_firstname','advanced_options')] == False:
             window[('firstname_beginning_input','advanced_options')].update('')
@@ -108,12 +101,20 @@ def canvas():
             window[("ffxiv_miqote",'style')].update(disabled=True)
             window[("ffxiv_aura",'style')].update(disabled=True)
 
+        rerolls = 0
         if values[('character_restrictions', 'restrictions')] == True:
             window[('character_objectives', 'restrictions')].update(disabled=False)
             window[('character_esc_clause', 'restrictions')].update(disabled=False)
+            rerolls += 1
+
+            if values[("character_objectives", 'restrictions')] == True:
+                rerolls += 1
+            if values[("character_esc_clause", 'restrictions')] == True:
+                rerolls += 1
         else:
             window[("character_objectives", 'restrictions')].update(disabled=True)
             window[("character_esc_clause", 'restrictions')].update(disabled=True)
+            rerolls = 0
 
         if values['character_class'] == True:
             window['character_class_combo'].update(disabled=False)
@@ -152,22 +153,12 @@ def canvas():
 
             if generate_amount:
                 for i in range(generate_amount):
+                    firstname = names.generate_firstname(ending=values[('firstname_ending_input','advanced_options')], beginning=values[('firstname_beginning_input','advanced_options')], sex=sex, style=style)
+                    lastname = names.generate_surname(beginning=values[('surname_beginning_input','advanced_options')], ending=values[('surname_ending_input','advanced_options')], style=style, sex=sex)
                     if 'firstname' in activated_options:
-                        firstname = names.generate_firstname(ending=values[('firstname_ending_input','advanced_options')], beginning=values[('firstname_beginning_input','advanced_options')], sex=sex, style=style)
-                    else:
-                        firstname = ""
-
+                        print(firstname[0], end=' ')
                     if 'surname' in activated_options:
-                        lastname = names.generate_surname(beginning=values[('surname_beginning_input','advanced_options')], ending=values[('surname_ending_input','advanced_options')], style=style, sex=sex)
-                    else:
-                        lastname = ""
-
-                    if 'firstname' in activated_options:
-                        print('Name: ' + firstname + " " + lastname)
-                    elif 'firstname' and 'surname' not in activated_options:
-                        pass
-                    elif 'firstname' not in activated_options:
-                        print('Name: ' + lastname)
+                        print(lastname[0])
 
             if values[('character_restrictions', 'restrictions')]:
                 print('Restriction: ' + restrictions.generate_restriction())
@@ -187,6 +178,5 @@ def canvas():
                 char_class = character_class.generate_class(game=game, sex=sex, genderlock=values['character_class_genderlock'])
                 print('Class: ' + char_class)
 
-            #pass
         if event == 'cancel':
             window.close()

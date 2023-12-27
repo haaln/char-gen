@@ -12,7 +12,6 @@ a program to quickly generate character name with additional options such as bac
 - pre-determined beginning/end
 - re-roll X (i.e re-roll only name, restriction or class)
 - difficulty setting
-- add a few more goals/restrictions/escape clauses
 - overhaul GUI
 
 ### Features
