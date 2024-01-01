@@ -50,7 +50,9 @@ import random
 consonants = [ 'b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'w', 'z', 'x', 'v', 'y']
 vowel = [ 'a', 'e', 'i', 'o', 'u']
 
+#change to **kwargs
 #def generate_firstname(**kwargs):
+# :%s/'simple'/**kwargs['simple']
 def generate_firstname(sex=None, style=None, beginning='', ending='', special_characters=None, length=None):
     if sex == 'male':
         match style:
@@ -233,7 +235,7 @@ def generate_surname(style=None, beginning='', ending='', special_characters=Non
 
 
 color = [ "Red", "Yellow", "Orange", "Blue", "Green", "Violet", "Iridescent", "Neon", "Crimson", "Black", "White", "Dark", "Marine" ]
-adjective = [ "Hidden", "Secretive", "Crazy", "Silly", "Insane", "Daft", "Eccentric", "Strange", "Suspicious", "Swift", "Hungry", "Eagle-eyed", "Vicious", "Cowardly", "Crafty", "Ruthless", "Voracious", "Sneaky", "Tired", "Despondent", "Blazing", "Cunning", "Scheming", "Old", "Greedy", "Armored", "Mad", "Flaming", "Howling", "Rogue", "Undercover", "Sly", "Smiling", "Wild", "Stalking", "Silent", "Steel", "Sinister", "Evil", "Sadistic", "Thieving", "Grubby", "Dirty", "Starved", "Fat", "Slow",  "Big", "Small", "Tiny", "Giant", "Despondent", "Bald" ]
+adjective = [ "Hidden", "Secretive", "Crazy", "Silly", "Insane", "Dumb", "Eccentric", "Strange", "Suspicious", "Swift", "Hungry", "Eagle-eyed", "Vicious", "Cowardly", "Crafty", "Ruthless", "Voracious", "Sneaky", "Tired", "Despondent", "Blazing", "Cunning", "Scheming", "Old", "Greedy", "Armored", "Mad", "Flaming", "Howling", "Rogue", "Undercover", "Sly", "Smiling", "Wild", "Stalking", "Silent", "Steel", "Sinister", "Evil", "Sadistic", "Thieving", "Grubby", "Dirty", "Starved", "Fat", "Slow",  "Big", "Small", "Tiny", "Giant", "Despondent", "Bald" ]
 adjective.extend(color)
 noun = [ "Lion", "Otter", "Beaver", "Hawk", "Snake", "Rat", "Storm", "Fighter", "Joker", "Eagle", "Tiger", "Soul", "Soldier", "Cobra", "Shadow", "Marmot", "Fox", "Eagle", "Bear", "Scorpion", "Crow", "Wolf", "Disaster", "Raccoon", "Dog", "Cat", "Mango", "Berry"]
 
