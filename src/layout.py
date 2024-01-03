@@ -10,7 +10,7 @@ sg.set_options(text_justification='right')
 sg.theme('Dark')
 layout = [
           #[sg.Text('Simple character generator')],
-          [sg.Text('Main', font=('Helvetica', 15))],
+          [sg.Text('Simple character generator', font=('Helvetica', 15))],
           #[sg.Text(' ', font=('Helvetica', 15))],
           [sg.Checkbox('First name', default=True, key='firstname'), sg.Checkbox('Surname', default=True, key='surname')],
           [sg.Radio('Male', 1, default=True, key=('male', 'sex')), sg.Radio('Female', 1, key=('female', 'sex'))],
