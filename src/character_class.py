@@ -4,25 +4,20 @@ import random
 
 def generate_class(game=None, sex=None, genderlock=None):
     if game:
-        match game:
-            case 'Black Desert':
-                if genderlock:
-                    match sex:
-                        case 'male':
-                            return random.choice(random.choice([bdo_character_male_class]))
-                        case 'female':
-                            return random.choice(random.choice([bdo_character_female_class]))
-                else:
-                    return random.choice(random.choice([bdo_character_class]))
-            case 'FFXIV':
-                return random.choice(random.choice([ffxiv_character_class]))
-            case 'World of Warcraft':
-                return random.choice(random.choice([wow_character_class]))
-            case _:
-                return random.choice(random.choice([generic_classes]))
-
-    else:
-        print('error, could not find class')
+        if game == 'Black Desert':
+            if genderlock:
+                if sex == 'male':
+                    return random.choice(random.choice([bdo_character_male_class]))
+                if sex == 'female':
+                    return random.choice(random.choice([bdo_character_female_class]))
+            else:
+                return random.choice(random.choice([bdo_character_class]))
+        if game == 'FFXIV':
+            return random.choice(random.choice([ffxiv_character_class]))
+        if game ==  'World of Warcraft':
+            return random.choice(random.choice([wow_character_class]))
+        else:
+            return random.choice(random.choice([generic_classes]))
 
 bdo_character_class = [ "Warrior", "Valkyrie", "Witch", "Wizard", 'Tamer', "Ranger", "Sorceress", "Berserker", "Musa", 'Maehwa', 'Ninja', 'Kunoichi', 'Dark Knight', 'Striker', 'Mystic', 'Lahn', 'Archer', 'Corsair', 'Drakania', 'Shai', 'Nova', 'Sage', 'Hashashin', 'Woosa', 'Maegu' ]
 bdo_character_male_class = [ "Warrior", "Wizard", "Berserker", 'Ninja', 'Striker', 'Archer', 'Sage', 'Hashashin' ]

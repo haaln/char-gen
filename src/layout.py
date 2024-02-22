@@ -8,7 +8,7 @@ import PySimpleGUI as sg
 sg.set_options(text_justification='right')
 
 sg.theme('Dark')
-layout = [
+tab_1 = [
           #[sg.Text('Simple character generator')],
           [sg.Text('Simple character generator', font=('Helvetica', 15))],
           #[sg.Text(' ', font=('Helvetica', 15))],
@@ -34,14 +34,7 @@ layout = [
                sg.Combo(values=['Unspecified game', 'Black Desert', 'FFXIV', 'World of Warcraft' ], default_value=['Unspecified game'], disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
                sg.Checkbox('Genderlock class choice', default=True, key='character_class_genderlock', visible=False)],
           [sg.Text(' ' * 100, size=(65,1))],
-          #[sg.Text('_' * 100, size=(65,1))],
-          #[sg.Output(size=(62,10), echo_stdout_stderr=True, key='output')],
-          #[sg.Text('_' * 100, size=(65,1))],
-          #[sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], key='generate_amount', initial_value=1, size=(4, 1)), sg.Text('character(s).')],
-          #[sg.Button('Generate', enable_events=True, key='generate'), sg.Cancel(key='cancel')]
          ]
-
-tab_1 = layout
 
 tab_2 = [
          [sg.Text(' ', font=('Helvetica', 15))],
@@ -58,19 +51,31 @@ tab_2 = [
         ]
 
 all_layout =  [
-               [sg.TabGroup([[sg.Tab('Main', tab_1), sg.Tab('Advanced name options', tab_2)]])],
-               [sg.Text('Generate', size=(8, 1)), sg.Spin(values=[i for i in range(1, 21)], key='generate_amount', initial_value=1, size=(4, 1)), sg.Text('character(s).')],
+               [sg.TabGroup([[sg.Tab('Main', tab_1), sg.Tab('Name options', tab_2)]])],
+               [sg.Text('Generate', size=(8, 1)), sg.Spin(enable_events=True, values=[i for i in range(1, 1000)], key='generate_amount', initial_value=1, size=(4, 1)), sg.Text('character(s).')],
                [sg.Output(size=(43,10), echo_stdout_stderr=True, key='output', font=('Helvetica', 15))],
-               [sg.Button('Generate', enable_events=True, key='generate', bind_return_key=True, focus=True), sg.Cancel(key='cancel')]
+               [sg.Button('Generate', enable_events=True, key='generate', bind_return_key=True, focus=True), sg.Cancel('Close', key='cancel')]
               ]
 
 window = sg.Window('character generator', all_layout, finalize=True)
+window['generate_amount'].bind('<Button-4>', 'scroll-up', propagate=True)
+window['generate_amount'].bind('<Button-5>', 'scroll-down', propagate=True)
+window['generate_amount'].bind('<Enter>', 'FOCUS_GENERATE')
+window['generate_amount'].bind('<Leave>', 'FOCUS_LEAVE')
 window['generate'].set_focus()
-
 
 def canvas():
     while True:
         event, values = window.read()
+
+        # spin mouse scroll +/- feedback
+        if event == 'generate_amountscroll-down':
+            amt = values['generate_amount'] - 1
+            if amt:
+                window['generate_amount'].update(amt)
+        if event == 'generate_amountscroll-up':
+            amt = values['generate_amount'] + 1
+            window['generate_amount'].update(amt)
 
         if values[('man_firstname','advanced_options')] == False:
             window[('firstname_beginning_input','advanced_options')].update('')
@@ -155,7 +160,9 @@ def canvas():
                 for i in range(generate_amount):
                     firstname = names.generate_firstname(ending=values[('firstname_ending_input','advanced_options')], beginning=values[('firstname_beginning_input','advanced_options')], sex=sex, style=style)
                     lastname = names.generate_surname(beginning=values[('surname_beginning_input','advanced_options')], ending=values[('surname_ending_input','advanced_options')], style=style, sex=sex)
-                    if 'firstname' in activated_options:
+                    if 'firstname' in activated_options and not 'surname' in activated_options:
+                        print(firstname[0])
+                    elif 'firstname' in activated_options:
                         print(firstname[0], end=' ')
                     if 'surname' in activated_options:
                         print(lastname[0])
