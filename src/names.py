@@ -21,68 +21,29 @@ import random
 #female_xaela_aura_ffxiv
 #xaela_aura_surname_ffxiv
 
-def generate_simple_firstname(sex, beginning='', ending=''):
-    if sex == 'male':
-        if(beginning == '' and ending == ''):
-            # sanity check 
-            prefix = random.choice(male_prefix)
-            suffix = random.choice(male_suffix)
-            if(prefix[-1].lower() in consonants and suffix[0] in consonants and suffix[1] in consonants):
-                return [prefix+suffix[1:], prefix, suffix]
-            else:
-                return [prefix+suffix, prefix, suffix]
-        elif(beginning != '' and ending == ''):
-            prefix = beginning.lower()
-            suffix = random.choice(male_suffix)
-            if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
-                return [prefix[:-1].capitalize()+suffix, prefix, suffix]
-            else:
-                return [prefix.capitalize() + suffix, prefix, suffix]
-        elif(beginning == '' and ending != ''):
-            prefix = random.choice(male_prefix)
-            return [prefix + ending, prefix, ending]
-        else:
-            return [beginning + ending, beginning, ending]
+def sanitize_simple_firstname(prefix, suffix):
+    prefix.lower()
+
+    if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
+        return [prefix.capitalize() + suffix[1:], prefix, suffix]
+    elif(len(prefix)>2 and prefix[-2] == suffix[0] and prefix[-1] == suffix[1]):
+        return [prefix.capitalize() + suffix[2:], prefix, suffix]
+    elif(prefix[-1] == suffix[0]):
+        return [prefix[:-1].capitalize()+suffix, prefix, suffix]
     else:
-        if(beginning == '' and ending == ''):
-            # sanity check 
-            prefix = random.choice(female_prefix)
-            suffix = random.choice(female_suffix)
-            if(prefix[-1].lower() in consonants and suffix[0] in consonants and suffix[1] in consonants):
-                return [prefix+suffix[1:], prefix, suffix]
-            elif(len(prefix)>2 and prefix[-2] == suffix[0] and prefix[-1] == suffix[1]):
-                return [prefix+suffix[2:], prefix, suffix]
-            elif(prefix[-1] == suffix[0]):
-                return [prefix[:-1]+suffix, prefix, suffix]
-            else:
-                return [prefix+suffix, prefix, suffix]
-            return [prefix + suffix, prefix, suffix]
-        elif(beginning != '' and ending == ''):
-            prefix = beginning.lower()
-            suffix = random.choice(female_suffix)
-            if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
-                return [prefix.capitalize()+suffix[1:], prefix, suffix]
-            elif(len(prefix)>2 and prefix[-2] == suffix[0] and prefix[-1] == suffix[1]):
-                return [prefix.capitalize()+suffix[2:], prefix, suffix]
-            elif(prefix[-1] == suffix[0]):
-                return [prefix[:-1].capitalize()+suffix, prefix, suffix]
-            else:
-                return [prefix.capitalize()+suffix, prefix, suffix]
-            return prefix+suffix
-        elif(beginning == '' and ending != ''):
-            prefix = random.choice(female_prefix)
-            suffix = ending
-            if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
-                return [prefix+suffix[1:], prefix, suffix]
-            elif(len(prefix)>2 and prefix[-2].lower() == suffix[0] and prefix[-1] == suffix[1]):
-                return [prefix+suffix[2:], prefix, suffix]
-            elif(prefix[-1].lower() == suffix[0]):
-                return [prefix[:-1]+suffix, prefix, suffix]
-            else:
-                return [prefix+suffix, prefix, suffix]
-            return [prefix + suffix, prefix, suffix]
-        else:
-            return [beginning + ending, beginning, ending]
+        return [prefix.capitalize() + suffix, prefix, suffix]
+
+    return [prefix.capitalize() + suffix, prefix, suffix]
+
+def generate_simple_firstname(sex, beginning=False, ending=False):
+    if sex == 'male':
+        prefix = beginning if beginning else random.choice(male_prefix)
+        suffix = ending if ending else random.choice(male_suffix)
+        return prefix, suffix
+    else:
+        prefix = beginning if beginning else random.choice(female_prefix)
+        suffix = ending if ending else random.choice(female_suffix)
+        return prefix, suffix
 
 def generate_lalafell_firstname(sex, **kwargs):
     if sex == 'male':
@@ -108,53 +69,48 @@ def generate_ffxiv_hyur(sex, **kwargs):
     else:
         return random.choice(female_hyur_ffxiv)
 
-def generate_firstname(sex=None, style=None, **kwargs):
+def generate_ffxiv_aura(sex, **kwargs):
     if sex == 'male':
-        if style == 'simple':
-            return generate_simple_firstname(sex, kwargs['beginning'], kwargs['ending'])
-        elif style == 'ffxiv_hyur':
-            return [generate_ffxiv_hyur(sex)]
-        elif style == 'ffxiv_lala':
-            return generate_lalafell_firstname(sex)
-        elif style == 'ffxiv_aura':
-            return [random.choice(male_xaela_aura_ffxiv)]
-        elif style == 'ffxiv_miqote':
-            return [random.choice(male_miqote_ffxiv) + " " + random.choice(male_miqote_surname_ffxiv)]
-        elif style == 'ffxiv_elezen':
-            return [random.choice(random.choice([male_elezen, surname_elezen_wildwood_ffxiv, surname_elezen_duskwight_ffxiv]))]
-        elif style == 'realistic':
-            return [random.choice(male_modern)]
-        elif style == 'nickname':
-            return generate_nickname()
-        elif style == 'japanese':
-            return random.choice(male_aura_ffxiv)
-        elif style == 'dwarf':
-            return random.choice(male_firstname_dwarf)
-        elif style == 'elf':
-            return random.choice(male_firstname_elf)
+        return [random.choice(male_xaela_aura_ffxiv)]
     else:
-        if style == 'simple':
-            return generate_simple_firstname(sex, kwargs['beginning'], kwargs['ending'])
-        if style == 'ffxiv_hyur':
-            return [generate_ffxiv_hyur(sex)]
-        if style == 'ffxiv_lala':
-            return generate_lalafell_firstname(sex)
-        if style == 'ffxiv_aura':
-            return [random.choice(female_xaela_aura_ffxiv)]
-        if style == 'ffxiv_miqote':
-            return [random.choice(female_miqote_ffxiv) + " " + random.choice(female_miqote_surname_ffxiv)]
-        if style == 'ffxiv_elezen':
-            return [male_elezen]
-        if style == 'realistic':
-            return [random.choice(female_modern)]
-        if style == 'nickname':
-            return generate_nickname()
-        if style == 'japanese':
-            return random.choice(female_aura_ffxiv)
-        if style == 'dwarf':
-            return random.choice(female_firstname_dwarf)
-        if style == 'elf':
-            return random.choice(female_firstname_elf)
+        return [random.choice(female_xaela_aura_ffxiv)]
+
+def generate_ffxiv_miqote(sex, **kwargs):
+    if sex == 'male':
+        return [random.choice(male_miqote_ffxiv) + " " + random.choice(male_miqote_surname_ffxiv)]
+    else:
+        return [random.choice(female_miqote_ffxiv) + " " + random.choice(female_miqote_surname_ffxiv)]
+
+def generate_ffxiv_elezen(sex, **kwargs):
+    if sex == 'male':
+        return [random.choice(random.choice([male_elezen, surname_elezen_wildwood_ffxiv, surname_elezen_duskwight_ffxiv]))]
+    else:
+        return [male_elezen]
+
+def generate_realistic_firstname(sex, **kwargs):
+    if sex == 'male':
+        return [random.choice(male_modern)]
+    else:
+        return [random.choice(female_modern)]
+
+def generate_firstname(sex=None, style=None, **kwargs):
+    if style == 'simple':
+        prefix, suffix = generate_simple_firstname(sex, kwargs['beginning'], kwargs['ending'])
+        return sanitize_simple_firstname(prefix, suffix)
+    elif style == 'ffxiv_hyur':
+        return [generate_ffxiv_hyur(sex)]
+    elif style == 'ffxiv_lala':
+        return generate_lalafell_firstname(sex)
+    elif style == 'ffxiv_aura':
+        return generate_ffxiv_aura(sex)
+    elif style == 'ffxiv_miqote':
+        return generate_ffxiv_miqote(sex)
+    elif style == 'ffxiv_elezen':
+        return generate_ffxiv_elezen(sex)
+    elif style == 'realistic':
+        return generate_realistic_firstname(sex)
+    elif style == 'nickname':
+        return generate_nickname()
 
 def generate_lalafell_surname(sex, **kwargs):
     #plainsfolk
@@ -163,35 +119,22 @@ def generate_lalafell_surname(sex, **kwargs):
     if sex == 'female':
         return [A+B]
 
-def generate_simple_surname(beginning='', ending=''):
-    if(beginning == '' and ending == ''):
-        #prevent same character in a row between joining of prefix suffix
-        suffix = random.choice(surname_suffix)
-        prefix = random.choice(surname_prefix)
-        if(suffix != '' and prefix[-1] == suffix[0]):
-            return [prefix[0:-1]+suffix, prefix, suffix]
-        else:
-            return [prefix+suffix, prefix, suffix]
-    elif(beginning != '' and ending == ''):
-        prefix = beginning.lower()
-        suffix = random.choice(surname_suffix)
-        if(suffix != '' and prefix[-1] == suffix[0]):
-            return [prefix[0:-1].capitalize()+suffix, prefix, suffix]
-        else:
-            return [prefix.capitalize()+suffix, prefix, suffix]
-    elif(beginning == '' and ending != ''):
-        prefix = random.choice(surname_prefix)
-        suffix = ending.lower()
-        if(suffix != '' and prefix[-1] == suffix[0]):
-            return [prefix[0:-1]+suffix, prefix, suffix]
-        else:
-            return [prefix+suffix, prefix, suffix]
-    else:
-        return [beginning.capitalize() + ending.lower(), beginning.capitalize(), ending.lower()]
+def sanitize_simple_surname(prefix, suffix):
+    prefix.lower()
+    if(suffix != '' and prefix[-1] == suffix[0]):
+        return [prefix[0:-1].capitalize() + suffix, prefix, suffix]
+
+    return [prefix.capitalize() + suffix, prefix, suffix]
+
+def generate_simple_surname(beginning=False, ending=False):
+    prefix = beginning if beginning else random.choice(surname_prefix)
+    suffix = ending if ending else random.choice(surname_suffix)
+    return prefix, suffix
 
 def generate_surname(style=None, **kwargs):
     if style == 'simple':
-        return generate_simple_surname(kwargs['beginning'], kwargs['ending'])
+        prefix, suffix = generate_simple_surname(kwargs['beginning'], kwargs['ending'])
+        return sanitize_simple_surname(prefix, suffix)
     elif style == 'ffxiv_hyur':
         return [random.choice(surname_hyur_ffxiv)]
     elif style == 'ffxiv_miqote':
