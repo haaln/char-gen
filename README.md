@@ -57,3 +57,6 @@ a program to quickly generate character name with additional options such as bac
 - use tags to feed into stable diffufsion
     - image creation based on generated character
 
+## Screenshots
+
+![picture](https://github.com/haaln/char-gen/blob/master/screenshot/screenshot.png?raw=true)
