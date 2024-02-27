@@ -58,9 +58,11 @@ def generate_lalafell_firstname(sex, **kwargs):
             B = random.choice(lalafell_ffxiv_B).lower()
             return [A+B+B]
 
-def generate_nickname():
-    adj = random.choice(adjective)
-    nou = random.choice(noun)
+def generate_nickname(beginning=False, ending=False):
+    adj = beginning if beginning else random.choice(adjective)
+    #noun kwargs does not work because arg is passed to generate_surname instead, while entire nick is genereated here
+    #consider integrating entire name generation into one function, with options like: surname=y/n ?
+    nou = ending if ending else random.choice(noun)
     return [adj + " " + nou, adj, nou]
 
 def generate_ffxiv_hyur(sex, **kwargs):
@@ -110,7 +112,7 @@ def generate_firstname(sex=None, style=None, **kwargs):
     elif style == 'realistic':
         return generate_realistic_firstname(sex)
     elif style == 'nickname':
-        return generate_nickname()
+        return generate_nickname(kwargs['beginning'], kwargs['ending'])
 
 def generate_lalafell_surname(sex, **kwargs):
     #plainsfolk

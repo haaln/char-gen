@@ -31,7 +31,7 @@ tab_1 = [
                sg.Checkbox('Escape clause', tooltip=' Allow a condition where if fulfilled, you may forego your character restriction ', key=('character_esc_clause', 'restrictions'), disabled=True)],
           [sg.Checkbox('Character background', tooltip=' Generates random trivia ', key='character_backstory')],
           [sg.Checkbox('Character class', key='character_class', enable_events=True, tooltip=' Picks a random class for the character depending on game '), \
-               sg.Combo(values=['Unspecified game', 'Black Desert', 'FFXIV', 'World of Warcraft' ], default_value=['Unspecified game'], disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
+               sg.Combo(values=['Unspecified game', 'Black Desert', 'FFXIV', 'World of Warcraft' ], default_value="Unspecified game", disabled=True, enable_events=True, key='character_class_combo', readonly=True),\
                sg.Checkbox('Genderlock class choice', default=True, key='character_class_genderlock', visible=False)],
           [sg.Text(' ' * 100, size=(65,1))],
          ]
@@ -47,7 +47,16 @@ tab_2 = [
          [sg.Checkbox('Surname', disabled=False, enable_events=True, k=('man_surname','advanced_options')),\
              sg.Push(),
              sg.Text('Begins with: '), sg.InputText(size=(10,1), disabled=False, enable_events=True, k=('surname_beginning_input','advanced_options')), \
-             sg.Text('Ends with: '),   sg.InputText(size=(10,1), disabled=False, enable_events=True, k=('surname_ending_input','advanced_options'))]
+             sg.Text('Ends with: '),   sg.InputText(size=(10,1), disabled=False, enable_events=True, k=('surname_ending_input','advanced_options'))],
+         [sg.Text(' ', font=('Helvetica', 15))],
+         [sg.Text('Nickname: ')],
+         #[sg.Text(' ', font=('Helvetica', 15))],
+         [sg.Checkbox('Firstname', disabled=False, enable_events=True, k=('man_firstname_nick','advanced_options')), \
+             sg.Push(),
+             sg.Text('Value: '), sg.InputText(size=(25,1), disabled=False, enable_events=True, k=('nick_beginning_input','advanced_options'))],\
+         [sg.Checkbox('Surname', disabled=False, enable_events=True, k=('man_surname_nick','advanced_options')),\
+             sg.Push(),
+             sg.Text('Value: '), sg.InputText(size=(25,1), disabled=False, enable_events=True, k=('nick_ending_input','advanced_options'))],\
         ]
 
 all_layout =  [
@@ -85,16 +94,48 @@ def canvas():
             window[('surname_beginning_input','advanced_options')].update('')
             window[('surname_ending_input','advanced_options')].update('')
 
-        if values[('man_firstname','advanced_options')] == True or values[('man_surname','advanced_options')] == True:
+        if values[('man_firstname_nick','advanced_options')] == False:
+            window[('nick_beginning_input','advanced_options')].update('')
+
+        if values[('man_surname_nick','advanced_options')] == False:
+            window[('nick_ending_input','advanced_options')].update('')
+
+        # naming options tab
+        if values[('man_firstname_nick','advanced_options')] == True or values[('man_surname_nick','advanced_options')] == True:
+            window[('nickname','style')].update(True)
+            window[('realistic','style')].update(disabled=True)
+            window['ffxiv'].update(disabled=True)
+            window[('simple','style')].update(disabled=True)
+            window[('man_firstname','advanced_options')].update(disabled=True)
+            window[('man_surname','advanced_options')].update(disabled=True)
+            firstname_beginning = values[('nick_beginning_input', 'advanced_options')]
+            firstname_ending    = ''
+            surname_beginning   = values[('nick_ending_input','advanced_options')]
+            surname_ending      = ''
+        elif values[('man_firstname','advanced_options')] == True or values[('man_surname','advanced_options')] == True:
             window[('simple','style')].update(True)
             window[('realistic','style')].update(disabled=True)
             window['ffxiv'].update(disabled=True)
             window[('nickname','style')].update(disabled=True)
+            window[('man_firstname_nick','advanced_options')].update(disabled=True)
+            window[('man_surname_nick','advanced_options')].update(disabled=True)
+            firstname_beginning = values[('firstname_beginning_input', 'advanced_options')]
+            firstname_ending    = values[('firstname_ending_input','advanced_options')]
+            surname_beginning   = values[('surname_beginning_input','advanced_options')]
+            surname_ending      = values[('surname_ending_input','advanced_options')]
         else:
             window[('realistic','style')].update(disabled=False)
             window['ffxiv'].update(disabled=False)
+            window[('simple','style')].update(disabled=False)
             window[('nickname','style')].update(disabled=False)
-
+            window[('man_firstname_nick','advanced_options')].update(disabled=False)
+            window[('man_surname_nick','advanced_options')].update(disabled=False)
+            window[('man_firstname','advanced_options')].update(disabled=False)
+            window[('man_surname','advanced_options')].update(disabled=False)
+            firstname_beginning = False
+            firstname_ending    = False
+            surname_beginning   = False
+            surname_ending      = False
         if values['ffxiv'] == True:
             window[("ffxiv_hyur", 'style')].update(disabled=False)
             window[("ffxiv_lala", 'style')].update(disabled=False)
@@ -155,11 +196,14 @@ def canvas():
             except ValueError:
                 print('Enter valid number')
                 generate_amount = None
+            except:
+                print('Invalid number')
+                generate_amount = None
 
             if generate_amount:
                 for i in range(generate_amount):
-                    firstname = names.generate_firstname(ending=values[('firstname_ending_input','advanced_options')], beginning=values[('firstname_beginning_input','advanced_options')], sex=sex, style=style)
-                    lastname = names.generate_surname(beginning=values[('surname_beginning_input','advanced_options')], ending=values[('surname_ending_input','advanced_options')], style=style, sex=sex)
+                    firstname = names.generate_firstname(beginning=firstname_beginning, ending=firstname_ending, sex=sex, style=style)
+                    lastname = names.generate_surname(beginning=surname_beginning, ending=surname_ending, style=style, sex=sex)
                     if 'firstname' in activated_options and not 'surname' in activated_options:
                         print(firstname[0])
                     elif 'firstname' in activated_options:
