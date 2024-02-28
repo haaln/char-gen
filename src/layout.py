@@ -9,9 +9,7 @@ sg.set_options(text_justification='right')
 
 sg.theme('Dark')
 tab_1 = [
-          #[sg.Text('Simple character generator')],
           [sg.Text('Simple character generator', font=('Helvetica', 15))],
-          #[sg.Text(' ', font=('Helvetica', 15))],
           [sg.Checkbox('First name', default=True, key='firstname'), sg.Checkbox('Surname', default=True, key='surname')],
           [sg.Radio('Male', 1, default=True, key=('male', 'sex')), sg.Radio('Female', 1, key=('female', 'sex'))],
           [sg.Text('_' * 100, size=(65,1))],
@@ -38,8 +36,7 @@ tab_1 = [
 
 tab_2 = [
          [sg.Text(' ', font=('Helvetica', 15))],
-         [sg.Text('Only available with Simple naming convention')],
-         #[sg.Text(' ', font=('Helvetica', 15))],
+         [sg.Text('Simple: ')],
          [sg.Checkbox('Firstname', disabled=False, enable_events=True, k=('man_firstname','advanced_options')), \
              sg.Push(),
              sg.Text('Begins with: '),sg.InputText(size=(10,1), disabled=False, enable_events=True, k=('firstname_beginning_input','advanced_options')), \
@@ -53,10 +50,10 @@ tab_2 = [
          #[sg.Text(' ', font=('Helvetica', 15))],
          [sg.Checkbox('Firstname', disabled=False, enable_events=True, k=('man_firstname_nick','advanced_options')), \
              sg.Push(),
-             sg.Text('Value: '), sg.InputText(size=(25,1), disabled=False, enable_events=True, k=('nick_beginning_input','advanced_options'))],\
+             sg.Text('Value: '), sg.InputText(size=(45,1), disabled=False, enable_events=True, k=('nick_beginning_input','advanced_options'))],\
          [sg.Checkbox('Surname', disabled=False, enable_events=True, k=('man_surname_nick','advanced_options')),\
              sg.Push(),
-             sg.Text('Value: '), sg.InputText(size=(25,1), disabled=False, enable_events=True, k=('nick_ending_input','advanced_options'))],\
+             sg.Text('Value: '), sg.InputText(size=(45,1), disabled=False, enable_events=True, k=('nick_ending_input','advanced_options'))],\
         ]
 
 all_layout =  [
@@ -100,9 +97,15 @@ def canvas():
         if values[('man_surname_nick','advanced_options')] == False:
             window[('nick_ending_input','advanced_options')].update('')
 
+        if values[('nickname', 'style')] == True:
+            window[('surname')].update(True)
+            window[('firstname')].update(True)
+
         # naming options tab
         if values[('man_firstname_nick','advanced_options')] == True or values[('man_surname_nick','advanced_options')] == True:
             window[('nickname','style')].update(True)
+            window[('surname')].update(True)
+            window[('firstname')].update(True)
             window[('realistic','style')].update(disabled=True)
             window['ffxiv'].update(disabled=True)
             window[('simple','style')].update(disabled=True)
@@ -202,14 +205,21 @@ def canvas():
 
             if generate_amount:
                 for i in range(generate_amount):
-                    firstname = names.generate_firstname(beginning=firstname_beginning, ending=firstname_ending, sex=sex, style=style)
-                    lastname = names.generate_surname(beginning=surname_beginning, ending=surname_ending, style=style, sex=sex)
+                    name = names.generate_name(
+                        firstname=values['firstname'],
+                        surname=values['surname'],
+                        first_begin=firstname_beginning,
+                        first_end=firstname_ending,
+                        sur_begin=surname_beginning,
+                        sur_end=surname_ending,
+                        style=style,
+                        sex=sex)
                     if 'firstname' in activated_options and not 'surname' in activated_options:
-                        print(firstname[0])
+                        print(name[0])
                     elif 'firstname' in activated_options:
-                        print(firstname[0], end=' ')
+                        print(name[0], end=' ')
                     if 'surname' in activated_options:
-                        print(lastname[0])
+                        print(name[1])
 
             if values[('character_restrictions', 'restrictions')]:
                 print('Restriction: ' + restrictions.generate_restriction())

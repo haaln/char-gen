@@ -10,6 +10,8 @@ a program to quickly generate character name with additional options such as bac
 - name constraints (i.e length, spaces)
 - add tolkien/historic/roman/greek/korean/japanese/chinese/nordic style names
 - re-design GUI
+- install script/binaries
+- pylint
 
 ## Features
 
