@@ -1,34 +1,41 @@
+from dataclasses import dataclass
 import random
 
 def generate_name(sex:str, firstname:str, surname:str, first_begin:str, first_end:str, sur_begin:str, sur_end:str, style:str) -> list:
-    if style == 'simple':
-        return generate_simple(sex, firstname, surname, first_begin, first_end, sur_begin, sur_end)
-    if style == 'ffxiv_hyur':
-        return generate_ffxiv_hyur(sex, firstname, surname)
-    if style == 'ffxiv_lala':
-        return generate_lalafell(sex)
-    if style == 'ffxiv_aura':
-        return generate_ffxiv_aura(sex, firstname, surname)
-    if style == 'ffxiv_miqote':
-        return generate_ffxiv_miqote(sex, firstname, surname)
-    if style == 'ffxiv_elezen':
-        return generate_ffxiv_elezen(sex, firstname, surname)
-    if style == 'nickname':
-        return generate_nickname(firstname, surname)
-    if style == 'realistic':
-        return generate_realistic(sex, firstname, surname)
-    if style == 'japanese':
-        return generate_japanese(sex, firstname, surname)
+
+    @dataclass
+    class NameArg:
+        sex: str
+        firstname: str
+        surname: str
+        first_begin: str
+        first_end: str
+        sur_begin: str
+        sur_end: str
+        style: str
+
+    Arg = NameArg(
+        sex=sex, firstname=firstname, surname=surname, first_begin=first_begin, first_end=first_end, sur_begin=sur_begin, sur_end=sur_end, style=style
+    )
+
+    # Not sure whether passing entire Arg regardless of necessity is clever...
+    method = {
+        "simple": generate_simple(Arg),
+        "ffxiv_hyur": generate_ffxiv_hyur(Arg),
+        "ffxiv_lala": generate_ffxiv_lala(Arg),
+        "ffxiv_aura": generate_ffxiv_aura(Arg),
+        "ffxiv_miqote": generate_ffxiv_miqote(Arg),
+        "ffxiv_elezen": generate_ffxiv_elezen(Arg),
+        "nickname": generate_nickname(Arg),
+        "realistic": generate_realistic(Arg),
+        "japanese": generate_japanese(Arg),
+    }
+    if style in method:
+        return method[style]
 
     return ['Firstname','Surname',['First','Name'],['Sur','Name']]
 
-def generate_simple(sex,
-                    firstname,
-                    surname,
-                    first_begin,
-                    first_end,
-                    sur_begin,
-                    sur_end):
+def generate_simple(Character):
 
     def sanitize_simple(prefix, suffix, name_type): #name_type dogshit hotfix for edge case
         prefix.lower()
@@ -66,14 +73,14 @@ def generate_simple(sex,
         sur_suffix = sur_end if sur_end else random.choice(surname_suffix)
         return sur_prefix, sur_suffix
 
-    f_prefix, f_suffix = gen_firstname(sex, first_begin, first_end)
-    firstname = firstname if firstname else sanitize_simple(f_prefix, f_suffix, 'firstname')
-    s_prefix, s_suffix = gen_surname(sur_begin, sur_end)
-    surname = surname if surname else sanitize_simple(s_prefix, s_suffix, 'surname')
+    f_prefix, f_suffix = gen_firstname(Character.sex, Character.first_begin, Character.first_end)
+    firstname = Character.firstname if Character.firstname else sanitize_simple(f_prefix, f_suffix, 'firstname')
+    s_prefix, s_suffix = gen_surname(Character.sur_begin, Character.sur_end)
+    surname = Character.surname if Character.surname else sanitize_simple(s_prefix, s_suffix, 'surname')
 
     return [firstname,  surname, [f_prefix, f_suffix], [s_prefix, s_suffix]]
 
-def generate_lalafell(sex):
+def generate_ffxiv_lala(Character):
     A =  random.choice(lalafell_ffxiv_A)
     B =  random.choice(lalafell_ffxiv_B).lower()
     C =  random.choice(lalafell_ffxiv_C)
@@ -97,17 +104,17 @@ def generate_lalafell(sex):
         else:
             return A+B, [A, B]
 
-    firstname, f_out = gen_firstname(sex, A, B, race)
-    surname, s_out = gen_surname(sex, A, B, C, race)
+    firstname, f_out = gen_firstname(Character.sex, A, B, race)
+    surname, s_out = gen_surname(Character.sex, A, B, C, race)
 
     return [firstname, surname, f_out, s_out]
 
-def generate_nickname(firstname, surname):
-    adj = firstname if firstname else random.choice(adjective)
-    nou = surname if surname else random.choice(noun)
+def generate_nickname(Character):
+    adj = Character.firstname if Character.firstname else random.choice(adjective)
+    nou = Character.surname if Character.surname else random.choice(noun)
     return [adj, nou, [adj], [nou]]
 
-def generate_ffxiv_hyur(sex, firstname, surname):
+def generate_ffxiv_hyur(Character):
 
     def gen_firstname(sex):
         if sex == 'male':
@@ -118,13 +125,13 @@ def generate_ffxiv_hyur(sex, firstname, surname):
     def gen_surname():
         return random.choice(surname_hyur_ffxiv)
 
-    firstname = firstname if firstname else gen_firstname(sex)
-    surname = surname if surname else gen_surname()
+    firstname = Character.firstname if Character.firstname else gen_firstname(Character.sex)
+    surname = Character.surname if Character.surname else gen_surname()
 
     return [firstname, surname, [firstname], [surname]]
 
 
-def generate_ffxiv_aura(sex, firstname, surname):
+def generate_ffxiv_aura(Character):
     tribe = random.choice(['xaela', 'aura'])
 
     def gen_firstname(sex, tribe):
@@ -145,12 +152,12 @@ def generate_ffxiv_aura(sex, firstname, surname):
         else:
             return random.choice(aura_surname_ffxiv)
 
-    firstname = firstname if firstname else gen_firstname(sex, tribe)
-    surname = surname if surname else gen_surname(tribe)
+    firstname = Character.firstname if Character.firstname else gen_firstname(Character.sex, tribe)
+    surname = Character.surname if Character.surname else gen_surname(tribe)
 
     return [firstname, surname, [firstname], [surname]]
 
-def generate_ffxiv_miqote(sex, firstname, surname):
+def generate_ffxiv_miqote(Character):
 
     def gen_firstname(sex):
         if sex == 'male':
@@ -164,12 +171,12 @@ def generate_ffxiv_miqote(sex, firstname, surname):
         else:
             return random.choice(female_miqote_surname_ffxiv)
 
-    firstname = firstname if firstname else gen_firstname(sex)
-    surname = surname if surname else gen_surname(sex)
+    firstname = Character.firstname if Character.firstname else gen_firstname(Character.sex)
+    surname = Character.surname if Character.surname else gen_surname(Character.sex)
 
     return [firstname, surname, [firstname], [surname]]
 
-def generate_ffxiv_elezen(sex, firstname, surname):
+def generate_ffxiv_elezen(Character):
 
     def gen_firstname(sex):
         if sex == 'male':
@@ -180,28 +187,28 @@ def generate_ffxiv_elezen(sex, firstname, surname):
     def gen_surname():
         return random.choice(random.choice([surname_elezen_wildwood_ffxiv, surname_elezen_duskwight_ffxiv]))
 
-    firstname = firstname if firstname else gen_firstname(sex)
-    surname = surname if surname else gen_surname()
+    firstname = Character.firstname if Character.firstname else gen_firstname(Character.sex)
+    surname = Character.surname if Character.surname else gen_surname()
 
     return [firstname, surname, [firstname], [surname]]
 
-def generate_realistic(sex, firstname, surname):
+def generate_realistic(Character):
 
     def gen_firstname(sex):
         if sex == 'male':
-            return firstname if firstname else random.choice(male_modern)
+            return Character.firstname if Character.firstname else random.choice(male_modern)
         else:
             return random.choice(female_modern)
 
     def gen_surname():
         return random.choice(surname_modern)
 
-    firstname = firstname if firstname else gen_firstname(sex)
-    surname = surname if surname else gen_surname()
+    firstname = Character.firstname if Character.firstname else gen_firstname(Character.sex)
+    surname = Character.surname if Character.surname else gen_surname()
 
     return [firstname, surname, [firstname], [surname]]
 
-def generate_japanese(sex, firstname, surname):
+def generate_japanese(Character):
 
     def gen_firstname(sex):
         if sex == 'male':
@@ -212,7 +219,7 @@ def generate_japanese(sex, firstname, surname):
     def gen_surname():
         return random.choice(aura_surname_ffxiv)
 
-    firstname = gen_firstname(sex)
+    firstname = gen_firstname(Character.sex)
     surname = gen_surname()
 
     return [firstname, surname, [firstname], [surname]]
