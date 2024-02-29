@@ -1,14 +1,12 @@
 import random
 
-# Consider returning both firstnames and surnames regardless options and let function caller filter out desired outpout
-
-def generate_name(sex, firstname, surname, first_begin, first_end, sur_begin, sur_end, style=None):
+def generate_name(sex:str, firstname:str, surname:str, first_begin:str, first_end:str, sur_begin:str, sur_end:str, style:str) -> list:
     if style == 'simple':
         return generate_simple(sex, firstname, surname, first_begin, first_end, sur_begin, sur_end)
     if style == 'ffxiv_hyur':
         return generate_ffxiv_hyur(sex, firstname, surname)
     if style == 'ffxiv_lala':
-        return generate_lalafell(sex, firstname, surname, first_begin, first_end, sur_begin)
+        return generate_lalafell(sex)
     if style == 'ffxiv_aura':
         return generate_ffxiv_aura(sex, firstname, surname)
     if style == 'ffxiv_miqote':
@@ -16,21 +14,24 @@ def generate_name(sex, firstname, surname, first_begin, first_end, sur_begin, su
     if style == 'ffxiv_elezen':
         return generate_ffxiv_elezen(sex, firstname, surname)
     if style == 'nickname':
-        return generate_nickname(first_begin, sur_begin)
+        return generate_nickname(firstname, surname)
     if style == 'realistic':
         return generate_realistic(sex, firstname, surname)
+    if style == 'japanese':
+        return generate_japanese(sex, firstname, surname)
+
+    return ['Firstname','Surname',['First','Name'],['Sur','Name']]
 
 def generate_simple(sex,
-                    firstname=True,
-                    surname=True,
-                    first_begin=False,
-                    first_end=False,
-                    sur_begin=False,
-                    sur_end=False):
+                    firstname,
+                    surname,
+                    first_begin,
+                    first_end,
+                    sur_begin,
+                    sur_end):
 
-    def sanitize_simple(prefix, suffix, name_type):
+    def sanitize_simple(prefix, suffix, name_type): #name_type dogshit hotfix for edge case
         prefix.lower()
-
         #hotfix
         if name_type == 'surname':
             if (suffix == ''):
@@ -39,7 +40,6 @@ def generate_simple(sex,
                 return prefix[:-1].capitalize() + suffix
             else:
                 return prefix.capitalize() + suffix
-
         if (suffix == ''):
             return prefix.capitalize() + suffix
         if(prefix[-1] in consonants and suffix[0] in consonants and suffix[1] in consonants):
@@ -51,7 +51,7 @@ def generate_simple(sex,
         else:
             return prefix.capitalize() + suffix
 
-    def gen_firstname(sex, first_begin=False, first_end=False):
+    def gen_firstname(sex, first_begin, first_end):
         if sex == 'male':
             fir_prefix = first_begin if first_begin else random.choice(male_prefix)
             fir_suffix = first_end if first_end else random.choice(male_suffix)
@@ -66,28 +66,17 @@ def generate_simple(sex,
         sur_suffix = sur_end if sur_end else random.choice(surname_suffix)
         return sur_prefix, sur_suffix
 
-    if firstname:
-        f_prefix, f_suffix = gen_firstname(sex, first_begin, first_end)
-        firstname = sanitize_simple(f_prefix, f_suffix, 'firstname')
-    else:
-        firstname, f_prefix, f_suffix = '', '', ''
-    if surname:
-        s_prefix, s_suffix = gen_surname(sur_begin, sur_end)
-        surname = sanitize_simple(s_prefix, s_suffix, 'surname')
-    else:
-        surname, s_prefix, s_suffix = '', '', ''
+    f_prefix, f_suffix = gen_firstname(sex, first_begin, first_end)
+    firstname = firstname if firstname else sanitize_simple(f_prefix, f_suffix, 'firstname')
+    s_prefix, s_suffix = gen_surname(sur_begin, sur_end)
+    surname = surname if surname else sanitize_simple(s_prefix, s_suffix, 'surname')
 
     return [firstname,  surname, [f_prefix, f_suffix], [s_prefix, s_suffix]]
 
-def generate_lalafell(sex,
-                      firstname=True,
-                      surname=True,
-                      first_begin=False,
-                      first_end=False,
-                      sur_begin=False):
-    A = first_begin if first_begin else random.choice(lalafell_ffxiv_A)
-    B = first_end if first_end else random.choice(lalafell_ffxiv_B).lower()
-    C = sur_begin if sur_begin else random.choice(lalafell_ffxiv_C)
+def generate_lalafell(sex):
+    A =  random.choice(lalafell_ffxiv_A)
+    B =  random.choice(lalafell_ffxiv_B).lower()
+    C =  random.choice(lalafell_ffxiv_C)
     race = random.choice(['dune', 'plains'])
 
     def gen_firstname(sex, A, B, race):
@@ -108,23 +97,17 @@ def generate_lalafell(sex,
         else:
             return A+B, [A, B]
 
-    if firstname:
-        firstname, f_out = gen_firstname(sex, A, B, race)
-    else:
-        firstname, f_out = '', ['']
-    if surname:
-        surname, s_out = gen_surname(sex, A, B, C, race)
-    else:
-        surname, s_out = '', ['']
+    firstname, f_out = gen_firstname(sex, A, B, race)
+    surname, s_out = gen_surname(sex, A, B, C, race)
 
     return [firstname, surname, f_out, s_out]
 
-def generate_nickname(beginning=False, ending=False):
-    adj = beginning if beginning else random.choice(adjective)
-    nou = ending if ending else random.choice(noun)
+def generate_nickname(firstname, surname):
+    adj = firstname if firstname else random.choice(adjective)
+    nou = surname if surname else random.choice(noun)
     return [adj, nou, [adj], [nou]]
 
-def generate_ffxiv_hyur(sex, firstname=False, surname=False):
+def generate_ffxiv_hyur(sex, firstname, surname):
 
     def gen_firstname(sex):
         if sex == 'male':
@@ -135,18 +118,15 @@ def generate_ffxiv_hyur(sex, firstname=False, surname=False):
     def gen_surname():
         return random.choice(surname_hyur_ffxiv)
 
-    if firstname:
-        firstname = gen_firstname(sex)
-    else:
-        firstname = ''
-    if surname:
-        surname = gen_surname()
-    else:
-        surname = ''
+    firstname = firstname if firstname else gen_firstname(sex)
+    surname = surname if surname else gen_surname()
+
     return [firstname, surname, [firstname], [surname]]
 
-def generate_ffxiv_aura(sex, firstname=False, surname=False):
+
+def generate_ffxiv_aura(sex, firstname, surname):
     tribe = random.choice(['xaela', 'aura'])
+
     def gen_firstname(sex, tribe):
         if sex == 'male':
             if tribe == 'xaela':
@@ -158,60 +138,84 @@ def generate_ffxiv_aura(sex, firstname=False, surname=False):
                 return random.choice(female_xaela_aura_ffxiv)
             else:
                 return random.choice(female_aura_ffxiv)
+
     def gen_surname(tribe):
         if tribe == 'xaela':
             return random.choice(xaela_aura_surname_ffxiv)
         else:
             return random.choice(aura_surname_ffxiv)
 
-    firstname = gen_firstname(sex, tribe) if firstname else ''
-    surname = gen_surname(tribe) if surname else ''
+    firstname = firstname if firstname else gen_firstname(sex, tribe)
+    surname = surname if surname else gen_surname(tribe)
 
     return [firstname, surname, [firstname], [surname]]
 
-def generate_ffxiv_miqote(sex, firstname=False, surname=False):
+def generate_ffxiv_miqote(sex, firstname, surname):
+
     def gen_firstname(sex):
         if sex == 'male':
             return random.choice(male_miqote_ffxiv)
         else:
             return random.choice(female_miqote_ffxiv)
+
     def gen_surname(sex):
         if sex == 'male':
             return random.choice(male_miqote_surname_ffxiv)
         else:
             return random.choice(female_miqote_surname_ffxiv)
 
-    surname = gen_surname(sex) if surname else ''
-    firstname = gen_firstname(sex) if firstname else ''
+    firstname = firstname if firstname else gen_firstname(sex)
+    surname = surname if surname else gen_surname(sex)
 
     return [firstname, surname, [firstname], [surname]]
 
-def generate_ffxiv_elezen(sex, firstname=False, surname=False):
+def generate_ffxiv_elezen(sex, firstname, surname):
+
     def gen_firstname(sex):
         if sex == 'male':
             return random.choice(random.choice([male_elezen_ffxiv, surname_elezen_wildwood_ffxiv, surname_elezen_duskwight_ffxiv]))
         else:
             return male_elezen_ffxiv
+
     def gen_surname():
         return random.choice(random.choice([surname_elezen_wildwood_ffxiv, surname_elezen_duskwight_ffxiv]))
 
-    firstname = gen_firstname(sex) if firstname else ''
-    surname = gen_surname() if surname else ''
+    firstname = firstname if firstname else gen_firstname(sex)
+    surname = surname if surname else gen_surname()
 
     return [firstname, surname, [firstname], [surname]]
 
-def generate_realistic(sex, firstname=False, surname=False):
+def generate_realistic(sex, firstname, surname):
+
     def gen_firstname(sex):
         if sex == 'male':
-            return random.choice(male_modern)
+            return firstname if firstname else random.choice(male_modern)
         else:
             return random.choice(female_modern)
 
-    firstname = gen_firstname(sex) if firstname else ''
-    surname = random.choice(surname_modern) if surname else ''
+    def gen_surname():
+        return random.choice(surname_modern)
+
+    firstname = firstname if firstname else gen_firstname(sex)
+    surname = surname if surname else gen_surname()
 
     return [firstname, surname, [firstname], [surname]]
 
+def generate_japanese(sex, firstname, surname):
+
+    def gen_firstname(sex):
+        if sex == 'male':
+            return random.choice(male_aura_ffxiv)
+        else:
+            return random.choice(female_aura_ffxiv)
+
+    def gen_surname():
+        return random.choice(aura_surname_ffxiv)
+
+    firstname = gen_firstname(sex)
+    surname = gen_surname()
+
+    return [firstname, surname, [firstname], [surname]]
 
 consonants = [ 'b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'w', 'z', 'x', 'v', 'y']
 vowel = [ 'a', 'e', 'i', 'o', 'u']

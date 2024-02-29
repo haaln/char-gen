@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import layout
+import gui
 
 if __name__ == '__main__':
-    layout.canvas()
+    gui.create_window()

@@ -5,7 +5,7 @@ a program to quickly generate character name with additional options such as bac
 ## To-do
 
 - code refactor
-  - integrate firstname and surname generation into one function (with firstname/surname =y/n options)
+  - let name generation output first+surnames regardless of options
 - code tests
 - name constraints (i.e length, spaces)
 - add tolkien/historic/roman/greek/korean/japanese/chinese/nordic style names

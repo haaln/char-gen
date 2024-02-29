@@ -1,14 +1,12 @@
-#!/usr/bin/env python3
-
 import random
 
-def generate_restriction():
+def generate_restriction() -> str:
         return random.choice(account_type)
 
-def generate_goals():
+def generate_goals() -> str:
         return random.choice(goal)
 
-def generate_esc_clause():
+def generate_esc_clause() -> str:
         return random.choice(escape_clause)
 
 
@@ -48,10 +46,3 @@ escape_clause = [
         "Obtain the best mount",
         "Obtain the rarest item in the game (within given ruleset)",
         ]
-
-if __name__ == '__main__':
-        for i in range(10):
-                print(generate_restriction())
-                print(generate_goals())
-                print(generate_esc_clause())
-                print("\n")

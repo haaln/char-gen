@@ -1,16 +1,12 @@
-#!/usr/bin/env python3
-
 import random
 
 # add dreams/hopes backstory
 # human city backstory
 
-
-def generate_background():
-    story = \
-        random.choice(origin) + " " +\
-        random.choice(fact)  + " " +\
-        random.choice(achievement)
+def generate_background() -> str:
+    story =     random.choice(origin)\
+        + ' ' + random.choice(fact)\
+        + " " + random.choice(achievement)
     return story
 
 origin = ["You were born and raised in a hamlet.",
@@ -44,8 +40,3 @@ exposition = [ "You have a serious dislike for DISLIKE",
 
 dwarf_city = [ "Gorndarum", "Birnkahldur", "Hig Faldir", "Bhom Buldor", "Haggrim", "Dugbihr", "Gol Durahl", "Bhogh Darohm", "Thoghbuldahr", "Veglodahr", "Kan Taruhm", "Ham Darul", "Vern Darim" ]
 elf_city = [ "Amyenshys", "Shylve Entheas", "Emflin", "Amyfrion", "Mfe Asari", "Ellon", "Ins Lenora", "Emi Alora", "Onle Taesi", "Wailin", "Efan Esari" ]
-
-if __name__ == '__main__':
-    for i in range(10):
-        print(generate_background())
-
