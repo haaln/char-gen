@@ -18,7 +18,6 @@ account_type = [
         "Hardcore",
         "Ultimate Ironman",
         "Ultimate Hardcore Ironman",
-        #"Area restricted. (complete everything possible to move on to next area, backtrack whenever possible)",
         "Area restricted",
         "Make a second character (no restrictions) alongside and progress equally in different paths.",
         "Bronzeman",

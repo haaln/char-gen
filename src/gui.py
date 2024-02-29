@@ -1,13 +1,14 @@
+import PySimpleGUI as sg
 from copy import error
+
 import character_name as names
 import character_backstory as backstory
 import character_restrictions as restrictions
 import character_class
-import PySimpleGUI as sg
 
 sg.set_options(text_justification='right')
 
-sg.theme('Dark')
+sg.theme('DarkGrey9')
 tab_1 = [
           [sg.Text('Simple character generator', font=('Helvetica', 15))],
           [sg.Checkbox('First name', default=True, key='firstname'), sg.Checkbox('Surname', default=True, key='surname')],

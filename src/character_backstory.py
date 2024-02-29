@@ -1,8 +1,5 @@
 import random
 
-# add dreams/hopes backstory
-# human city backstory
-
 def generate_background() -> str:
     story =     random.choice(origin)\
         + ' ' + random.choice(fact)\
