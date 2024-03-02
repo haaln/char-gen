@@ -48,4 +48,4 @@ a program to quickly generate character name with additional options such as bac
 
 ## Disclaimer
 
-This is not a serious project and was only born out of necessity because I'm too lazy to come up with names when playing games. Any additional feature beyond name generation is purely made for novelty/whatever/educational purpose and not for function. It is a simple name generator that *simply* randomizes preset values and returns a name, nothing else. Anything beyond this level of complexity for a name generator is olympic level mental gymnastics for a snowflake project meant to boast about over-engineered software that doesn't solve the problem it was set out to do in the first place.
+This is not a serious project and was only born out of necessity because I'm too lazy to come up with names when playing games. Any additional feature beyond name generation is purely made for novelty/whatever/educational purpose and not for function.
