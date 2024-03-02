@@ -2,15 +2,6 @@
 
 a program to quickly generate character name with additional options such as backstory, playthrough-limitations or trivial goals
 
-## To-do
-
-- code tests
-- name constraints (i.e length, spaces)
-- add tolkien/historic/roman/greek/korean/chinese/nordic style names
-- re-design GUI
-- install script/binaries
-- pylint
-
 ## Features
 
 - name generation
@@ -45,6 +36,11 @@ a program to quickly generate character name with additional options such as bac
 ## Screenshots
 
 ![picture](https://github.com/haaln/char-gen/blob/master/screenshot/screenshot.png?raw=true)
+
+## To-do
+
+- code tests
+- install script
 
 ## Disclaimer
 
