@@ -31,7 +31,7 @@ A program to quickly generate character name with additional options such as bac
 
 ## Screenshots
 
-![picture](https://github.com/haaln/char-gen/blob/master/screenshot/screenshot.png?raw=true)
+![picture](https://github.com/haaln/char-gen/blob/main/screenshot/screenshot.png?raw=true)
 
 ## Disclaimer
 
